@@ -54,5 +54,15 @@ df = pd.read_csv('../datasets/heart_failure_clinical_records_dataset.csv')
 df.describe().T
 ```
 
+![dataset2](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset2.png?raw=true)
+
+I got the following information from the description of the dataset.
+
+* In addition to my target, DEATH_EVENT, there are 12 features in the dataset
+* The dataset has two types of features, categorical features, such as sex, and continuous features, such as age
+* Checking the relevant information shows that the data points in the dataset are reliable
+
+I created the following table to explain the meaning of each feature and to distinguish between categorical features and continuous features.
+
 
 
