@@ -75,7 +75,17 @@ df_copy = df.rename(columns={'age':'AGE','creatinine_phosphokinase':'CPK','eject
 df_copy.head(10)
 ```
 
+![dataset4](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true)
 
+## <font color=#FFA689>3.1 Evaluating the Target</font>
 
+Now, let's visualize the target, death event of heart failure.
 
+```
+color=["#8cc7b5","#ffc7b5"]
+plt.figure(figsize=(10,7))
+sns.countplot(x= df_copy["Target"], palette= color)
+plt.xlabel('Heart Failure Death Event')
+plt.ylabel('Count')
+```
 
