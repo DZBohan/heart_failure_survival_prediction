@@ -157,3 +157,6 @@ First, I'll analyze and select the continuous features. I remove the categorical
 df_continuous = df_copy.drop(['ANA','DIA','HBP','SEX','SMO'],axis=1)
 df_continuous.head(10)
 ```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature4.png?raw=true"/></div>
+
