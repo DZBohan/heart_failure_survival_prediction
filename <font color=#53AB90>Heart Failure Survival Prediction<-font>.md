@@ -128,7 +128,7 @@ plt.xlabel('Fellow-up Period (days)')
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature1.png?raw=true"/></div>
 
-The follow up period for patients ranges from 4 to 284 days. Many of the patients with very short follow-up periods had died early in the data collection period and were therefore lost to contact. Therefore, we can see high intensity of mortality in the initial days.
+The follow up period for patients ranges from 4 to 284 days. Many of the patients with very short follow-up periods had died early in the data collection period and were therefore lost to contact. We can see high intensity of mortality in the initial days.
 
 ```
 plt.figure(figsize=(10,7))
@@ -136,3 +136,12 @@ ax = sns.boxenplot(x=df_copy['Target'],y=df_copy['time'],palette = color)
 plt.ylabel('Fellow-up Period (days)')
 plt.xlabel('Death Events')
 ```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature2.png?raw=true"/></div>
+
+We can also see from the boxplot that the follow-up period was shorter for patients who died. Although this feature has a high correlation with death in heart failure, it is not meaningful for prediction, so I removed it from the dataset.
+
+```
+df_copy = df_copy.drop(['time'],axis=1)
+df_copy.head(10)
+```
+
