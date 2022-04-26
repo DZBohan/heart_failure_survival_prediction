@@ -12,6 +12,8 @@ Death of heart failure is associated with location [1]. Prior to this dataset, t
 
 The goal of this study is to select appropriate features and models to predict survival in heart failure based on this dataset. This will enable hospitals to have a clearer picture of the patients’ condition when admitting them and make appropriate preparations and treatment plans.
 
+I will also solve some problem when training models with small size datasets. I used jupter notebook to do this project.
+
 ## <font color=#FFA689>2. Importing Libraries</font>
 
 The following libraries were used in this project.
@@ -77,7 +79,7 @@ df_copy.head(10)
 
 ![dataset4](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true)
 
-## <font color=#FFA689>3.1 Evaluating the Target</font>
+## <font color=#FFA689>3.2 Evaluating the Target</font>
 
 Now, let's visualize the target, death event of heart failure.
 
@@ -87,5 +89,26 @@ plt.figure(figsize=(10,7))
 sns.countplot(x= df_copy["Target"], palette= color)
 plt.xlabel('Heart Failure Death Event')
 plt.ylabel('Count')
+```
+
+![dataset5](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset5.png?raw=true)
+
+There is an imbalance in the target of the dataset, so I will come to solve this problem later.
+
+## <font color=#FFA689>3.2 Features Distribution</font>
+
+Let's take a look at the distribution of features in general, and later I will analyze specifically the features that will be used in this project.
+
+```
+index = 0
+plt.figure(figsize=(20, 10))
+feature = ["AGE","CPK","EFR","PLA","SCR","SSO","ANA","DIA","HBP","SEX","SMO","time"]
+for i in feature:
+    index += 1
+    plt.subplot(3, 4, index)
+    ax = sns.histplot(x=df_copy[i],bins=15,data=df_copy, hue ="Target",palette = color,multiple="stack")
+    plt.legend(labels=["Died","Survived"],fontsize = 'large')
+    plt.xlabel(i)
+plt.show()
 ```
 
