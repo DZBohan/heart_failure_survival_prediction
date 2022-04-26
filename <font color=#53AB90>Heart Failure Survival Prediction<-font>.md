@@ -114,7 +114,7 @@ plt.show()
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset6.png?raw=true"/></div>
 
-## <font color=#FFA689>4. Feature Analysis</font>
+## <font color=#FFA689>4. Feature Selection</font>
 
 There are 7 continuous features and 5 categorical features in this dataset. First, let's focus on the feature of time. This feature is patients' follow-up period. The entire data collection lasted for more than 9 months. Let's first look at the distribution of this feature.
 
@@ -145,3 +145,15 @@ df_copy = df_copy.drop(['time'],axis=1)
 df_copy.head(10)
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature3.png?raw=true"/></div>
+
+Now, I have 6 continuous features and 5 categorical features in this dataset. I am going to analyze the continuous features and categorical features separately.
+
+### <font color=#FFA689>4.1 Continous Features</font>
+
+First, I'll analyze and select the continuous features. I remove the categorical features from the dataset and create a new dataframe df_continuous.
+
+```
+df_continuous = df_copy.drop(['ANA','DIA','HBP','SEX','SMO'],axis=1)
+df_continuous.head(10)
+```
