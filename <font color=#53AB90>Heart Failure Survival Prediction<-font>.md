@@ -1,6 +1,6 @@
 # <center> <font color=#53AB90>Heart Failure Survival Prediction</font> </center>
 
-![title](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true)
+<div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true"/></div>
 
 ## <font color=#FFA689>1. Introduction</font>
 
@@ -43,11 +43,11 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 Let's first look at the information on the dataset provided by the UC Irvine Machine Learning Repository.
 
-![dataset1](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset1.png?raw=true)
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset1.png?raw=true"/></div>
 
 The dataset contains 299 samples and 13 features. The good news is that there are no missing values.
 
-## <font color=#FFA689>3.1 Loading the Dataset</font>
+### <font color=#FFA689>3.1 Loading the Dataset</font>
 
 Let's load the dataset and see the description.
 
@@ -56,7 +56,7 @@ df = pd.read_csv('../datasets/heart_failure_clinical_records_dataset.csv')
 df.describe().T
 ```
 
-![dataset2](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset2.png?raw=true)
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset2.png?raw=true"/></div>
 
 I got the following information from the description of the dataset.
 
@@ -66,7 +66,7 @@ I got the following information from the description of the dataset.
 
 I created the following table to explain the meaning of each feature and to distinguish between categorical features and continuous features.
 
-![dataset3](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset3.png?raw=true)
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset3.png?raw=true"/></div>
 
 Of the 12 features, 5 are categorical features, and 7 are continuous features. To facilitate the analysis later, I give each feature a symbol, which is noted in the last column of the table.
 
@@ -77,9 +77,9 @@ df_copy = df.rename(columns={'age':'AGE','creatinine_phosphokinase':'CPK','eject
 df_copy.head(10)
 ```
 
-![dataset4](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true)
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true"/></div>
 
-## <font color=#FFA689>3.2 Evaluating the Target</font>
+### <font color=#FFA689>3.2 Evaluating the Target</font>
 
 Now, let's visualize the target, death event of heart failure.
 
@@ -91,11 +91,11 @@ plt.xlabel('Heart Failure Death Event')
 plt.ylabel('Count')
 ```
 
-![dataset5](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset5.png?raw=true)
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset5.png?raw=true"/></div>
 
 There is an imbalance in the target of the dataset, so I will come to solve this problem later.
 
-## <font color=#FFA689>3.2 Features Distribution</font>
+### <font color=#FFA689>3.3 Features Distribution</font>
 
 Let's take a look at the distribution of features in general, and later I will analyze specifically the features that will be used in this project.
 
@@ -112,3 +112,20 @@ for i in feature:
 plt.show()
 ```
 
+<div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset6.png?raw=true"/></div>
+
+## <font color=#FFA689>4. Feature Analysis</font>
+
+There are 7 continuous features and 5 categorical features in this dataset. First, let's focus on the feature of time. This feature is patients' follow-up period. The entire data collection lasted for more than 9 months. Let's first look at the distribution of this feature.
+
+```
+color=["#8cc7b5","#ffc7b5"]
+plt.figure(figsize=(10,7))
+ax = sns.histplot(x=df['time'],bins=15,data=df, hue ="DEATH_EVENT",palette = color,multiple="stack")
+plt.legend(labels=["Died","Survived"],fontsize = 'large')
+plt.xlabel('Fellow-up Period (days)')
+```
+
+
+
+The follow up period for patients ranges from 4 to 284 days. Many of the patients with very short follow-up periods had died early in the data collection period and were therefore lost to contact. 
