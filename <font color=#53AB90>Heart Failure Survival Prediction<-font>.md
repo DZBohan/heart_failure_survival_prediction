@@ -64,5 +64,18 @@ I got the following information from the description of the dataset.
 
 I created the following table to explain the meaning of each feature and to distinguish between categorical features and continuous features.
 
+![dataset3](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset3.png?raw=true)
+
+Of the 12 features, 5 are categorical features, and 7 are continuous features. To facilitate the analysis later, I give each feature a symbol, which is noted in the last column of the table.
+
+Now, I replace the feature names in the dataset with symbols.
+
+```
+df_copy = df.rename(columns={'age':'AGE','creatinine_phosphokinase':'CPK','ejection_fraction':'EFR','platelets':'PLA','serum_creatinine':'SCR','serum_sodium':'SSO','anaemia':'ANA','diabetes':'DIA','high_blood_pressure':'HBP','sex':'SEX','smoking':'SMO','DEATH_EVENT':'Target'})
+df_copy.head(10)
+```
+
+
+
 
 
