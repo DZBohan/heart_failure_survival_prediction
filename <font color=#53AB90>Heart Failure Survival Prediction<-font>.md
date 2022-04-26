@@ -12,4 +12,47 @@ Death of heart failure is associated with location [1]. Prior to this dataset, t
 
 The goal of this study is to select appropriate features and models to predict survival in heart failure based on this dataset. This will enable hospitals to have a clearer picture of the patients’ condition when admitting them and make appropriate preparations and treatment plans.
 
-## <font color=#FFA689>2. Dataset</font>
+## <font color=#FFA689>2. Importing Libraries</font>
+
+The following libraries were used in this project.
+
+
+```
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as ss
+import itertools
+import xgboost as xgb
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import GradientBoostingClassifier
+```
+
+
+## <font color=#FFA689>3. Dataset</font>
+
+Let's first look at the information on the dataset provided by the UC Irvine Machine Learning Repository.
+
+![dataset1](https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset1.png?raw=true)
+
+The dataset contains 299 samples and 13 features. The good news is that there are no missing values.
+
+## <font color=#FFA689>3.1 Loading the Dataset</font>
+
+Let's load the dataset and see the description.
+
+```
+df = pd.read_csv('../datasets/heart_failure_clinical_records_dataset.csv')
+df.describe().T
+```
+
+
+
