@@ -112,7 +112,7 @@ for i in feature:
 plt.show()
 ```
 
-<div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset6.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset6.png?raw=true"/></div>
 
 ## <font color=#FFA689>4. Feature Analysis</font>
 
@@ -121,11 +121,18 @@ There are 7 continuous features and 5 categorical features in this dataset. Firs
 ```
 color=["#8cc7b5","#ffc7b5"]
 plt.figure(figsize=(10,7))
-ax = sns.histplot(x=df['time'],bins=15,data=df, hue ="DEATH_EVENT",palette = color,multiple="stack")
+ax = sns.histplot(x=df_copy['time'],bins=15,data=df_copy,hue="Target",palette=color,multiple="stack")
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Fellow-up Period (days)')
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature1.png?raw=true"/></div>
 
+The follow up period for patients ranges from 4 to 284 days. Many of the patients with very short follow-up periods had died early in the data collection period and were therefore lost to contact. Therefore, we can see high intensity of mortality in the initial days.
 
-The follow up period for patients ranges from 4 to 284 days. Many of the patients with very short follow-up periods had died early in the data collection period and were therefore lost to contact. 
+```
+plt.figure(figsize=(10,7))
+ax = sns.boxenplot(x=df_copy['Target'],y=df_copy['time'],palette = color)
+plt.ylabel('Fellow-up Period (days)')
+plt.xlabel('Death Events')
+```
