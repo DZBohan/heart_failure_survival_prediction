@@ -266,6 +266,16 @@ ax = sns.histplot(x=df_continuous1['AGE'],bins=15,data=df_continuous1, hue ="Tar
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Age (years)')
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature11.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature12.png?raw=true"/></div>
+
+All patients were older than 40 years of age.
+
+```
+plt.figure(figsize=(10,7))
+ax = sns.boxenplot(x=df_continuous1['Target'],y=df_continuous1['AGE'],palette = color)
+plt.ylabel('Age (years)')
+plt.xlabel('Death Events')
+```
+
 
 
