@@ -538,4 +538,46 @@ As shown in the table, the overall ranking of the scores remains consistent, and
 
 ## <font color=#FFA689>5 Random Forest</font>
 
-<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf1.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf1.png?raw=true"/></div>
+
+Random forest, a Supervised Machine Learning Algorithm, can build decision trees on different samples and takes their majority vote for classification.
+
+In this section, I will use the training set to train the random forest model, tune the hyperparameters of the model to give it the best performance, and then test the accuracy on the test set.
+
+### <font color=#FFA689>5.1 Hyperparameters Tuning</font>
+
+Hyperparameters are model's parameters used to control the learning process. Tuning hyperparameters can improve the performance of the model. There are many hyperparameters of random forest.
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf2.png?raw=true"/></div>
+
+Now, I will first train the set with default hyperparameters and do a prediction on the test set.
+
+```
+classifier = RandomForestClassifier(random_state=20)
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+```
+
+Let's plot a confusion matrix to see the model performance on test set.
+
+```
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(10,7))
+p = sns.heatmap(cm, annot=True, cmap=cmap, fmt='g')
+plt.title('Confusion matrix for Random Forest Classifier Model - Test Set')
+plt.xlabel('Predicted Values')
+plt.ylabel('Actual Values')
+plt.show()
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf3.png?raw=true"/></div>
+
+As shown in the figure, of the 82 predictions, 73 were correct and 9 were incorrect, including two predictions of death as survival and seven predictions of survival as death.
+
+Let generate the accuracy on test set.
+
+```
+score = round(accuracy_score(y_test, y_pred),4)*100
+print("Accuracy on test set: {}%".format(score))
+```
+
