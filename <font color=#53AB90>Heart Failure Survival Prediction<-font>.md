@@ -530,4 +530,5 @@ Here is the result.
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model5.png?raw=true"/></div>
 
-However, I faced a challenge in this step. The score of models vary each time using RandomOversampler to replace the minority class of the target. As I said in the section 5.1, Because the sampling process is random, the dataset will change after each oversampling, which will cause some problems that I will explain in detail in later chapters.
+However, I faced a challenge in this step. The scores of models vary each time using RandomOversampler to replace the minority class of the target. As I mentioned in the section 5.1, because the sampling process is random, the dataset will change after each oversampling. This is the reason why the socres are different each time. The solution of this problem is to try multiple time to see if there is a model is consistently best. Here I tried GridSearchCV for five times, and this is the result.
+
