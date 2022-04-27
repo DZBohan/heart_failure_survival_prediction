@@ -209,7 +209,7 @@ Let's first observe the distribution of the feature Serum Creatinine.
 
 ```
 plt.figure(figsize=(10,7))
-ax = sns.histplot(x=df_continuous1['SCR'],bins=15,data=df_copy, hue ="Target",palette = color,multiple="stack")
+ax = sns.histplot(x=df_continuous1['SCR'],bins=15,data=df_continuous1, hue ="Target",palette = color,multiple="stack")
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Serum Creatinine (mg/dL)')
 ```
@@ -220,7 +220,7 @@ The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some 
 
 ```
 plt.figure(figsize=(10,7))
-ax = sns.boxenplot(x=df_continuous1['Target'],y=df_copy['SCR'],palette = color)
+ax = sns.boxenplot(x=df_continuous1['Target'],y=df_continuous1['SCR'],palette = color)
 plt.ylabel('Serum Creatinine (mg/dL)')
 plt.xlabel('Death Events')
 ax.set_ylim([0,4])
@@ -236,10 +236,21 @@ Let's have a look at the distribution of the feature Serum Creatinine.
 
 ```
 plt.figure(figsize=(10,7))
-ax = sns.histplot(x=df_continuous1['EFR'],bins=15,data=df_copy, hue ="Target",palette = color,multiple="stack")
+ax = sns.histplot(x=df_continuous1['EFR'],bins=15,data=df_continuous, hue ="Target",palette = color,multiple="stack")
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Ejection Fraction (%)')
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature9.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature10.png?raw=true"/></div>
+
+The normal range of the ejection fraction is 50% - 75%. It can be seen in the histogram that more patients had ejection fraction below the normal range.
+
+
+```
+plt.figure(figsize=(10,7))
+ax = sns.boxenplot(x=df_continuous1['Target'],y=df_continuous1['EFR'],palette = color)
+plt.ylabel('Ejection Fraction (%)')
+plt.xlabel('Death Events')
+```
+
 
 
