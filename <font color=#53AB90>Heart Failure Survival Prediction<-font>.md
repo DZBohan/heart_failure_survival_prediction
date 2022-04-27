@@ -179,7 +179,7 @@ plt.tight_layout()
 
 As seen in the heatmap, the correlation between continuous features is relatively low. Four features, serum creatinine, ejection fraction, age, and serum sodium, have relatively high correlations with Target. Two features, CPK and Platelets, had low correlations with Target.
 
-To verify whether the features CKP and Platelets should be removed, I first trained some common models using four features, serum creatinine, ejection fraction, age, and serum sodium, followed by six features serum creatinine, ejection fraction, age, serum sodium, CPK and platelets to train these models. The scores of the two training sessions were compared to determine whether to remove the two features that were less relevant to the target. Here I use the cross-validation method. The code will be given in Section 5 of this paper.
+To verify whether the features CKP and Platelets should be removed, I first trained some common models using four features, serum creatinine, ejection fraction, age, and serum sodium, followed by six features serum creatinine, ejection fraction, age, serum sodium, CPK and platelets to train these models. The scores of the two training sessions were compared to determine whether to remove the two features that were less relevant to the target. Here I use the cross-validation method. The code will be given in Section 5.4 of this paper.
 
 The table below lists the scores of the two model trainings, and here I used five models for validation, which are logistic regression, decision tree, random forest, XGBoost and GradientBoost.
 
@@ -463,4 +463,66 @@ This is the features' scale after standardization.
 
 ### <font color=#FFA689>5.4 Find the Best Model</font>
 
+
+Here I applied a function called GridSearchCV which uses cross-validation and is able to get average score on five different models, logistic regression, decision tree, random forest, XGBoost, gradient boost.
+
+```
+def find_best_model(X, y):
+    models = {
+        'logistic_regression': {
+            'model': LogisticRegression(solver='lbfgs', multi_class='auto'),
+            'parameters': {
+                'C': [1,5,10]
+               }
+        },
+        
+        'decision_tree': {
+            'model': DecisionTreeClassifier(splitter='best'),
+            'parameters': {
+                'criterion': ['gini', 'entropy'],
+                'max_depth': [5,10,20]
+            }
+        },
+        
+        'random_forest': {
+            'model': RandomForestClassifier(criterion='gini'),
+            'parameters': {
+                'n_estimators': [10,15,20,50,100,200],
+                'max_depth': [10,15,20,50,100]
+            }
+        },
+        
+        'XGBoost': {
+            'model': xgb.XGBClassifier(booster='gbtree', min_child_weight=1, gamma=0, scale_pos_weight=1),
+            'parameters': {
+                'eta': [0.1,0.2,0.3],
+                'max_depth': [3,4,5,6,7,8,9,10],
+            }
+        },
+        
+        'GradientBoost': {
+            'model': GradientBoostingClassifier(),
+            'parameters':{
+                'max_depth': [3,4,5,6,7,8,9,10],
+                'n_estimators': [10,15,20,50,100,200]
+            }
+        }        
+
+    }
+    
+    scores = [] 
+        
+    for model_name, model_params in models.items():
+        gs = GridSearchCV(model_params['model'], model_params['parameters'], return_train_score=False)
+        gs.fit(X, y)
+        scores.append({
+            'model': model_name,
+            'best_parameters': gs.best_params_,
+            'score': gs.best_score_
+        })
+        
+    return pd.DataFrame(scores, columns=['model','best_parameters','score'])
+
+find_best_model(X_train, y_train)
+```
 
