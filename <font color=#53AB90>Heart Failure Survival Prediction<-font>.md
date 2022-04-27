@@ -285,3 +285,22 @@ Patients who are older are more likely to die.
 
 Let's have a look at the distribution of the last feature, serum sodium. 
 
+```
+plt.figure(figsize=(10,7))
+ax = sns.histplot(x=df_continuous1['SSO'],bins=15,data=df_continuous1, hue ="Target",palette = color,multiple="stack")
+plt.legend(labels=["Died","Survived"],fontsize = 'large')
+plt.xlabel('Serum Sodium (mEq/L)')
+```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature14.png?raw=true"/></div>
+
+The normal range of serum sodiun is 135 - 145 mEq/L. More patients in this dataset had serum sodium in the normal range.
+
+```
+plt.figure(figsize=(10,7))
+ax = sns.boxenplot(x=df_continuous1['Target'],y=df_continuous1['SSO'],palette = color)
+plt.ylabel('Serum Sodium (mEq/L)')
+plt.xlabel('Death Events')
+ax.set_ylim([125,150])
+```
+
+
