@@ -196,10 +196,14 @@ I further used pairplot to see the correlation between these four features.
 sns.pairplot(df_continuous1,hue="Target",palette=color);
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature7.png?raw=true"/></div>
+
+By looking at the pairplot, I determined that the correlation between these four features was low, so I could select them for model training.
+
+Now, let's analyze these four features in detail.
 
 
+#### <font color=#FFA689>Serum Creatinine</font>
 
-
-Let's analyze these four features in detail.
-
+Let's first observe the distribution of the feature Serum Creatinine.
 
