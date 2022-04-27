@@ -160,3 +160,25 @@ df_continuous.head(10)
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature4.png?raw=true"/></div>
 
+Now, let's plot a heatmap to see the correlation between features.
+
+```
+corr1 = df_continuous.corr().round(2)
+mask = np.zeros_like(corr1, dtype=bool)
+mask[np.triu_indices_from(mask)] = True
+f, ax = plt.subplots(figsize=(10, 10))
+cmap = sns.diverging_palette(162,15,s=45,l=65,as_cmap=True)
+sns.heatmap(corr1, mask=mask, cmap=cmap,
+            square=True, linewidths=.5, cbar_kws={"shrink": .5}, annot=True);
+ax.set_title("Correlation between Continuous Features");
+plt.tight_layout()
+```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature5.png?raw=true"/></div>
+
+As seen in the heatmap, the correlation between continuous features is relatively low. Four features, Serum creatinine, Ejection fraction, Age, and Serum sodium, have relatively high correlations with Target. Two features, CPK and Platelets, had low correlations with Target.
+
+To verify whether the features CKP and Platelets should be removed, I first trained some common models using four features, Serum creatinine, Ejection fraction, Age, and Serum sodium, followed by six features Serum creatinine, Ejection fraction, Age, Serum sodium, CPK and Platelets to train these models. The scores of the two training sessions were compared to determine whether to remove the two features that were less relevant to the Target. Here I use the cross-validation method. The code will be given in Section 5 of this paper.
+
+The table below lists the scores of the two model trainings, and here I used five models for validation, which are
+
+
