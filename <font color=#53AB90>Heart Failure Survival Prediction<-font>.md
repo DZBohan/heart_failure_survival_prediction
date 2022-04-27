@@ -378,6 +378,25 @@ In summary, I kept only 4 continuous features, erum creatinine, ejection fractio
 df_continuous1.head(10)
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature19.png?raw=true"/></div>
 
+## <font color=#FFA689>5 Model Selection</font>
+
+First, I assign the four selected features to the variable X and the target to the variable y.
+
+```
+X = df_continuous1.drop(columns='Target')
+y = df_continuous1['Target']
+```
+
+### <font color=#FFA689>5.1 Imbalance Issue</font>
+
+In Chapter 3, I evaluated the targets of the dataset and found that there was an imbalance issue. There are 
+
+Now, I will use the imbalance-learn package to solve this problem. First, let's install the imbalance-learn package.
+
+```
+pip install imbalance-learne
+```
 
 
