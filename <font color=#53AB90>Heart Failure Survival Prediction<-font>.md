@@ -79,7 +79,7 @@ df_copy = df.rename(columns={'age':'AGE','creatinine_phosphokinase':'CPK','eject
 df_copy.head(10)
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true"/></div>
 
 ### <font color=#FFA689>3.2 Evaluating the Target</font>
 
@@ -93,7 +93,7 @@ plt.xlabel('Heart Failure Death Event')
 plt.ylabel('Count')
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset5.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset5.png?raw=true"/></div>
 
 There is an imbalance in the target of the dataset, so I will come to solve this problem later.
 
@@ -128,7 +128,7 @@ plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Fellow-up Period (days)')
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature1.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature1.png?raw=true"/></div>
 
 The follow up period for patients ranges from 4 to 284 days. Many of the patients with very short follow-up periods had died early in the data collection period and were therefore lost to contact. We can see high intensity of mortality in the initial days.
 
@@ -138,7 +138,7 @@ ax = sns.boxenplot(x=df_copy['Target'],y=df_copy['time'],palette = color)
 plt.ylabel('Fellow-up Period (days)')
 plt.xlabel('Death Events')
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature2.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature2.png?raw=true"/></div>
 
 We can also see from the boxplot that the follow-up period was shorter for patients who died. Although this feature has a high correlation with death in heart failure, it is not meaningful for prediction, so I removed it from the dataset.
 
@@ -147,7 +147,7 @@ df_copy = df_copy.drop(['time'],axis=1)
 df_copy.head(10)
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature3.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature3.png?raw=true"/></div>
 
 Now, I have 6 continuous features and 5 categorical features in this dataset. I am going to analyze the continuous features and categorical features separately.
 
@@ -160,7 +160,7 @@ df_continuous = df_copy.drop(['ANA','DIA','HBP','SEX','SMO'],axis=1)
 df_continuous.head(10)
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature4.png?raw=true"/></div>
+<div align=center><img width =30% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature4.png?raw=true"/></div>
 
 Now, let's plot a heatmap to see the correlation between features.
 
@@ -175,7 +175,7 @@ sns.heatmap(corr1, mask=mask, cmap=cmap,
 ax.set_title("Correlation between Continuous Features");
 plt.tight_layout()
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature5.png?raw=true"/></div>
+<div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature5.png?raw=true"/></div>
 
 As seen in the heatmap, the correlation between continuous features is relatively low. Four features, serum creatinine, ejection fraction, age, and serum sodium, have relatively high correlations with Target. Two features, CPK and Platelets, had low correlations with Target.
 
@@ -184,7 +184,7 @@ To verify whether the features CKP and Platelets should be removed, I first trai
 The table below lists the scores of the two model trainings, and here I used five models for validation, which are logistic regression, decision tree, random forest, XGBoost and GradientBoost.
 
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature6.png?raw=true"/></div>
+<div align=center><img width =30% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature6.png?raw=true"/></div>
 
 It can be seen that the scores of all models are lower when trained with six features than when trained with four, so I choose to remove these two features and keep only the four continuous features of Serum creatinine, Ejection fraction, Age, and Serum sodium.
 
@@ -198,7 +198,7 @@ I further used pairplot to see the correlation between these four features.
 sns.pairplot(df_continuous1,hue="Target",palette=color);
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature7.png?raw=true"/></div>
+<div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature7.png?raw=true"/></div>
 
 By looking at the pairplot, I determined that the correlation between these four features was low, so I could select them for model training.
 
@@ -216,7 +216,7 @@ plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Serum Creatinine (mg/dL)')
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
 
 The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some data points have values higher than 4. I had regarded them as outliers. However, I found that the highest record of serum creatinine is 73.8 mg/dL [3], meaning they are not outliers. 
 
@@ -228,7 +228,7 @@ plt.xlabel('Death Events')
 ax.set_ylim([0,4])
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature9.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature9.png?raw=true"/></div>
 
 As seen in the boxplot, patients are more likely to die in heart failure when their serum creatinine is higher than the normal range.
 
@@ -242,7 +242,7 @@ ax = sns.histplot(x=df_continuous1['EFR'],bins=15,data=df_continuous, hue ="Targ
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Ejection Fraction (%)')
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature10.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature10.png?raw=true"/></div>
 
 The normal range of the ejection fraction is 50% - 75%. It can be seen in the histogram that more patients had ejection fraction below the normal range.
 
@@ -254,7 +254,7 @@ plt.ylabel('Ejection Fraction (%)')
 plt.xlabel('Death Events')
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature11.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature11.png?raw=true"/></div>
 
 As seen in the boxplot, patients are more likely to die in heart failure when their serum creatinine is lower.
 
@@ -268,7 +268,7 @@ ax = sns.histplot(x=df_continuous1['AGE'],bins=15,data=df_continuous1, hue ="Tar
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Age (years)')
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature12.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature12.png?raw=true"/></div>
 
 All patients were older than 40 years of age.
 
@@ -279,7 +279,7 @@ plt.ylabel('Age (years)')
 plt.xlabel('Death Events')
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature13.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature13.png?raw=true"/></div>
 
 Patients who are older are more likely to die.
 
@@ -293,7 +293,7 @@ ax = sns.histplot(x=df_continuous1['SSO'],bins=15,data=df_continuous1, hue ="Tar
 plt.legend(labels=["Died","Survived"],fontsize = 'large')
 plt.xlabel('Serum Sodium (mEq/L)')
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature14.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature14.png?raw=true"/></div>
 
 The normal range of serum sodiun is 135 - 145 mEq/L. More patients in this dataset had serum sodium in the normal range.
 
@@ -305,7 +305,7 @@ plt.xlabel('Death Events')
 ax.set_ylim([125,150])
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature15.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature15.png?raw=true"/></div>
 
 As seen in the boxplot, patients are more likely to die in heart failure when their serum sodium is lower than the normal range.
 
@@ -319,7 +319,7 @@ df_categorical = df_copy.drop(["AGE","CPK","EFR","PLA","SCR","SSO"],axis=1)
 df_categorical.head(10)
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature16.png?raw=true"/></div>
+<div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature16.png?raw=true"/></div>
 
 I used the method called Cramér's V to see the correlation between the classified features. This method is based on Pearson's chi-squared statistic and able to meature the association between two nominal variables.
 
@@ -358,13 +358,13 @@ ax = sns.heatmap(corr2, mask=mask, cmap=cmap, ax=ax,
 ax.set_title("Cramér's V Correlation between Boolean Features");
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature17.png?raw=true"/></div>
+<div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature17.png?raw=true"/></div>
 
 In the categorical features, the correlation between diabetes, sex and smoking and death from heart failure was 0, so I removed these three features directly. Platelets and high blood pressure had a relatively low correlation with target. I used the same method as when screening continuous features to decide whether to keep these two features.
 
 I train the models using the four identified continuous features plus these two categorical features and compare the scores with the scores of the model trained with only four continuous features.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature18.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature18.png?raw=true"/></div>
 
 As can be seen from the table, whether or not these two features are added has little effect on the results. For the following three reasons, I decided to remove these two classification features, that is, to keep only four continuous features to train the model.
 
@@ -380,7 +380,7 @@ In summary, I kept only 4 continuous features, erum creatinine, ejection fractio
 df_continuous1.head(10)
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature19.png?raw=true"/></div>
+<div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature19.png?raw=true"/></div>
 
 ## <font color=#FFA689>5 Model Selection</font>
 
@@ -395,7 +395,7 @@ y = df_continuous1['Target']
 
 In Chapter 3, I evaluated the targets of the dataset and found that there was an imbalance issue. There are 96 death and 203 survival in the dataset.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model1.png?raw=true"/></div>
+<div align=center><img width =30% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model1.png?raw=true"/></div>
 
 Now, I will use the imbalance-learn package to solve this problem. First, let's install the imbalance-learn package.
 
@@ -413,7 +413,7 @@ print(Counter(y))
 print(Counter(y_over))
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model2.png?raw=true"/></div>
+<div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model2.png?raw=true"/></div>
 
 It can be seen that the minority class in the dataset, i.e., death, went from 96 samples to 203.
 
@@ -455,11 +455,11 @@ plt.show()
 
 This is the features' scale before standardization.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model3.png?raw=true"/></div>
+<div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model3.png?raw=true"/></div>
 
 This is the features' scale after standardization.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model4.png?raw=true"/></div>
+<div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model4.png?raw=true"/></div>
 
 ### <font color=#FFA689>5.4 Find the Best Model</font>
 
@@ -528,7 +528,14 @@ find_best_model(X_train, y_train)
 
 Here is the result.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model5.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model5.png?raw=true"/></div>
 
-However, I faced a challenge in this step. The scores of models vary each time using RandomOversampler to replace the minority class of the target. As I mentioned in the section 5.1, because the sampling process is random, the dataset will change after each oversampling. This is the reason why the socres are different each time. The solution of this problem is to try multiple time to see if there is a model is consistently best. Here I tried GridSearchCV for five times, and this is the result.
+However, I faced a challenge in this step. The scores of models vary each time using RandomOversampler to replace the minority class of the target. As I mentioned in the section 5.1, because the sampling process is random, the dataset will change after each oversampling. This is the reason why the socres are different each time. The solution of this problem is to try multiple time to see if there is a model is consistently best. Here I tried GridSearchCV for four times, and this is the result.
 
+<div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model6.png?raw=true"/></div>
+
+As shown in the table, the overall ranking of the scores remains consistent, and random forest is relatively the best. Therefore, I will choose random forest as the model.
+
+## <font color=#FFA689>5 Random Forest</font>
+
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf1.png?raw=true"/></div>
