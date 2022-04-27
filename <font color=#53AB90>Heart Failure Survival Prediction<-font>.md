@@ -413,7 +413,47 @@ print(Counter(y))
 print(Counter(y_over))
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model2.png?raw=true"/></div>
+
+It can be seen that the minority class in the dataset, i.e., death, went from 96 samples to 203.
+
 Because the sampling process is random, the dataset will change after each oversampling, which will cause some problems that I will explain in detail in later chapters.
+
+
+### <font color=#FFA689>5.2 Dataset Splitting</font>
+
+Now, I am going to splitting the dataset into training dataset and test dataset. Training set is for training the model, and test set is for testing the model with new, unseen data points.
+
+One important reason of splitting the dataset is to avoid the overfitting problem. Overfitting means a model has good performance on training dataset but has poor performance on the new data points.
+
+Let's split the dataset. I selected 80% of the data points as the training set and 20% of the data points as the test set.
+
+```
+X_train, X_test, y_train, y_test = train_test_split(X_over, y_over, test_size=0.20, random_state=20)
+```
+
+### <font color=#FFA689>5.3 Standardization</font>
+
+Some models, such as logistic regression, require standardization of the dataset, so I use StandardScaler for standardization.
+
+```
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+```
+
+Check the comparison of features' scale before and after standardization.
+
+```
+colours =["#ffc7b5","#e1c7b5","#aac7b5","#8cc7b5"]
+plt.figure(figsize=(15,10))
+ax=sns.boxenplot(data = X_train,palette = colours)
+ax.set_xticklabels(['AGE','EFR','SCR','SSO'])
+
+plt.show()
+```
+
+This is features' scale efore standardization.
 
 
 
