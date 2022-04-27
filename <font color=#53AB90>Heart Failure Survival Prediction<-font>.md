@@ -317,7 +317,7 @@ df_categorical = df_copy.drop(["AGE","CPK","EFR","PLA","SCR","SSO"],axis=1)
 df_categorical.head(10)
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature15.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature16.png?raw=true"/></div>
 
 I used the method called Cramér's V to see the correlation between the classified features. This method is based on Pearson's chi-squared statistic and able to meature the association between two nominal variables.
 
@@ -337,4 +337,21 @@ def cramers_corrected_stat(confusion_matrix):
     return np.sqrt(phi2corr / min( (kcorr-1), (rcorr-1)))
 ```
 
-I used this cramers_corrected_stat function to measure the correlation between categorical features in the dataset and to plot the heat map.
+I used this `cramers_corrected_stat` function to measure the correlation between categorical features in the dataset and to plot the heat map.
+
+```
+cols = ['ANA','DIA','HBP','SEX','SMO','Target']
+corrM = np.zeros((len(cols),len(cols)))
+for col1, col2 in itertools.combinations(cols, 2):
+    idx1, idx2 = cols.index(col1), cols.index(col2)
+    corrM[idx1, idx2] = cramers_corrected_stat(pd.crosstab(df_categorical[col1], df_categorical[col2]))
+    corrM[idx2, idx1] = corrM[idx1, idx2]
+
+corr2 = pd.DataFrame(corrM, index=cols, columns=cols)
+fig, ax = plt.subplots(figsize=(10, 10))
+mask = np.zeros_like(corr2)
+mask[np.triu_indices_from(mask)] = True
+ax = sns.heatmap(corr2, mask=mask, cmap=cmap, ax=ax, 
+                 square=True, linewidths=.5, cbar_kws={"shrink": .5}, annot=True); 
+ax.set_title("Cramér's V Correlation between Boolean Features");
+```
