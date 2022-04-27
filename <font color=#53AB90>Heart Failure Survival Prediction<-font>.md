@@ -355,3 +355,9 @@ ax = sns.heatmap(corr2, mask=mask, cmap=cmap, ax=ax,
                  square=True, linewidths=.5, cbar_kws={"shrink": .5}, annot=True); 
 ax.set_title("Cramér's V Correlation between Boolean Features");
 ```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature17.png?raw=true"/></div>
+
+In the categorical features, the correlation between diabetes, sex and smoking and death from heart failure was 0, so I removed these three features directly. Platelets and high blood pressure had a relatively low correlation with target. I used the same method as when screening continuous features to decide whether to keep these two features.
+
+I train the models using the four identified continuous features plus these two categorical features and compare the scores with the scores of the model trained with only four continuous features.
