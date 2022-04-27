@@ -179,6 +179,27 @@ As seen in the heatmap, the correlation between continuous features is relativel
 
 To verify whether the features CKP and Platelets should be removed, I first trained some common models using four features, Serum creatinine, Ejection fraction, Age, and Serum sodium, followed by six features Serum creatinine, Ejection fraction, Age, Serum sodium, CPK and Platelets to train these models. The scores of the two training sessions were compared to determine whether to remove the two features that were less relevant to the Target. Here I use the cross-validation method. The code will be given in Section 5 of this paper.
 
-The table below lists the scores of the two model trainings, and here I used five models for validation, which are
+The table below lists the scores of the two model trainings, and here I used five models for validation, which are logistic regression, decision tree, random forest, XGBoost and GradientBoost.
+
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature6.png?raw=true"/></div>
+
+It can be seen that the scores of all models are lower when trained with six features than when trained with four, so I choose to remove these two features and keep only the four continuous features of Serum creatinine, Ejection fraction, Age, and Serum sodium.
+
+```
+df_continuous1 = df_continuous.drop(['PLA','CPK'],axis=1)
+```
+
+I further used pairplot to see the correlation between these four features.
+
+```
+sns.pairplot(df_continuous1,hue="Target",palette=color);
+```
+
+
+
+
+
+Let's analyze these four features in detail.
 
 
