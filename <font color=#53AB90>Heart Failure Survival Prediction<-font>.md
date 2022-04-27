@@ -453,7 +453,14 @@ ax.set_xticklabels(['AGE','EFR','SCR','SSO'])
 plt.show()
 ```
 
-This is features' scale efore standardization.
+This is the features' scale before standardization.
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model3.png?raw=true"/></div>
+
+This is the features' scale after standardization.
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model4.png?raw=true"/></div>
+
+### <font color=#FFA689>5.4 Find the Best Model</font>
 
 
