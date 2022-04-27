@@ -526,3 +526,8 @@ def find_best_model(X, y):
 find_best_model(X_train, y_train)
 ```
 
+Here is the result.
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model5.png?raw=true"/></div>
+
+However, I faced a challenge in this step. The score of models vary each time using RandomOversampler to replace the minority class of the target. As I said in the section 5.1, Because the sampling process is random, the dataset will change after each oversampling, which will cause some problems that I will explain in detail in later chapters.
