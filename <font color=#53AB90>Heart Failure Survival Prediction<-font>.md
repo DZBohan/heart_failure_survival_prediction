@@ -205,5 +205,25 @@ Now, let's analyze these four features in detail.
 
 #### <font color=#FFA689>Serum Creatinine</font>
 
-Let's first observe the distribution of the feature Serum Creatinine.
+Let's first observe the distribution of the feature Serum Creatinine. 
 
+```
+plt.figure(figsize=(10,7))
+ax = sns.histplot(x=df_continuous1['SCR'],bins=15,data=df_copy, hue ="Target",palette = color,multiple="stack")
+plt.legend(labels=["Died","Survived"],fontsize = 'large')
+plt.xlabel('Serum Creatinine (mg/dL)')
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
+
+The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some data points have values higher than 4. I had regarded them as outliers. However, I found that the highest record of serum creatinine is 73.8 mg/dL, meaning they are not outliers. 
+
+```
+plt.figure(figsize=(10,7))
+ax = sns.boxenplot(x=df_continuous1['Target'],y=df_copy['SCR'],palette = color)
+plt.ylabel('Serum Creatinine (mg/dL)')
+plt.xlabel('Death Events')
+ax.set_ylim([0,4])
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
