@@ -175,9 +175,9 @@ plt.tight_layout()
 ```
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature5.png?raw=true"/></div>
 
-As seen in the heatmap, the correlation between continuous features is relatively low. Four features, Serum creatinine, Ejection fraction, Age, and Serum sodium, have relatively high correlations with Target. Two features, CPK and Platelets, had low correlations with Target.
+As seen in the heatmap, the correlation between continuous features is relatively low. Four features, serum creatinine, ejection fraction, age, and serum sodium, have relatively high correlations with Target. Two features, CPK and Platelets, had low correlations with Target.
 
-To verify whether the features CKP and Platelets should be removed, I first trained some common models using four features, Serum creatinine, Ejection fraction, Age, and Serum sodium, followed by six features Serum creatinine, Ejection fraction, Age, Serum sodium, CPK and Platelets to train these models. The scores of the two training sessions were compared to determine whether to remove the two features that were less relevant to the Target. Here I use the cross-validation method. The code will be given in Section 5 of this paper.
+To verify whether the features CKP and Platelets should be removed, I first trained some common models using four features, serum creatinine, ejection fraction, age, and serum sodium, followed by six features serum creatinine, ejection fraction, age, serum sodium, CPK and platelets to train these models. The scores of the two training sessions were compared to determine whether to remove the two features that were less relevant to the target. Here I use the cross-validation method. The code will be given in Section 5 of this paper.
 
 The table below lists the scores of the two model trainings, and here I used five models for validation, which are logistic regression, decision tree, random forest, XGBoost and GradientBoost.
 
@@ -361,3 +361,23 @@ ax.set_title("Cramér's V Correlation between Boolean Features");
 In the categorical features, the correlation between diabetes, sex and smoking and death from heart failure was 0, so I removed these three features directly. Platelets and high blood pressure had a relatively low correlation with target. I used the same method as when screening continuous features to decide whether to keep these two features.
 
 I train the models using the four identified continuous features plus these two categorical features and compare the scores with the scores of the model trained with only four continuous features.
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature18.png?raw=true"/></div>
+
+As can be seen from the table, whether or not these two features are added has little effect on the results. For the following three reasons, I decided to remove these two classification features, that is, to keep only four continuous features to train the model.
+
+* Removing them has no effect on the performance of the model
+* Removing two features can improve future data collection efficiency
+* Removing two features can speed up training
+
+### <font color=#FFA689>4.3 Final Features</font>
+
+In summary, I kept only 4 continuous features, erum creatinine, ejection fraction, age, and serum sodium for the next model training. The data frame used is df_continuous1.
+
+```
+df_continuous1.head(10)
+```
+
+
+
+
