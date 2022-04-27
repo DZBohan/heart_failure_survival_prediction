@@ -277,5 +277,11 @@ plt.ylabel('Age (years)')
 plt.xlabel('Death Events')
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature13.png?raw=true"/></div>
 
+Patients who are older are more likely to die.
+
+#### <font color=#FFA689>Serum Sodium</font>
+
+Let's have a look at the distribution of the last feature, serum sodium. 
 
