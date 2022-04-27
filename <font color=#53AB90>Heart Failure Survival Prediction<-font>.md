@@ -216,7 +216,7 @@ plt.xlabel('Serum Creatinine (mg/dL)')
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
 
-The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some data points have values higher than 4. I had regarded them as outliers. However, I found that the highest record of serum creatinine is 73.8 mg/dL, meaning they are not outliers. 
+The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some data points have values higher than 4. I had regarded them as outliers. However, I found that the highest record of serum creatinine is 73.8 mg/dL [3], meaning they are not outliers. 
 
 ```
 plt.figure(figsize=(10,7))
@@ -303,4 +303,38 @@ plt.xlabel('Death Events')
 ax.set_ylim([125,150])
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature15.png?raw=true"/></div>
 
+As seen in the boxplot, patients are more likely to die in heart failure when their serum sodium is lower than the normal range.
+
+
+### <font color=#FFA689>4.2 Categorical Features</font>
+
+I remove the continuous features from the df_copy dataframe, keeping only the 5 categorical features, and create a new dataframe df_categorical.
+
+```
+df_categorical = df_copy.drop(["AGE","CPK","EFR","PLA","SCR","SSO"],axis=1)
+df_categorical.head(10)
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature15.png?raw=true"/></div>
+
+I used the method called Cramér's V to see the correlation between the classified features. This method is based on Pearson's chi-squared statistic and able to meature the association between two nominal variables.
+
+```
+def cramers_corrected_stat(confusion_matrix):
+    """ calculate Cramers V statistic for categorical-categorical association.
+        uses correction from Bergsma and Wicher, 
+        Journal of the Korean Statistical Society 42 (2013): 323-328
+    """
+    chi2 = ss.chi2_contingency(confusion_matrix)[0]
+    n = confusion_matrix.sum().sum()
+    phi2 = chi2/n
+    r,k = confusion_matrix.shape
+    phi2corr = max(0, phi2 - ((k-1)*(r-1))/(n-1))    
+    rcorr = r - ((r-1)**2)/(n-1)
+    kcorr = k - ((k-1)**2)/(n-1)
+    return np.sqrt(phi2corr / min( (kcorr-1), (rcorr-1)))
+```
+
+I used this cramers_corrected_stat function to measure the correlation between categorical features in the dataset and to plot the heat map.
