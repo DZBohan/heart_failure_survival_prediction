@@ -205,7 +205,7 @@ Now, let's analyze these four features in detail.
 
 #### <font color=#FFA689>Serum Creatinine</font>
 
-Let's first observe the distribution of the feature Serum Creatinine. 
+Let's first observe the distribution of the feature serum creatinine. 
 
 ```
 plt.figure(figsize=(10,7))
@@ -232,7 +232,7 @@ As seen in the boxplot, patients are more likely to die in heart failure when th
 
 #### <font color=#FFA689>Ejection Fraction</font>
 
-Let's have a look at the distribution of the feature Serum Creatinine. 
+Let's have a look at the distribution of the feature ejection fraction. 
 
 ```
 plt.figure(figsize=(10,7))
@@ -252,5 +252,20 @@ plt.ylabel('Ejection Fraction (%)')
 plt.xlabel('Death Events')
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature11.png?raw=true"/></div>
+
+As seen in the boxplot, patients are more likely to die in heart failure when their serum creatinine is lower.
+
+#### <font color=#FFA689>Age</font>
+
+Let's have a look at the distribution of the third feature, age. 
+
+```
+plt.figure(figsize=(10,7))
+ax = sns.histplot(x=df_continuous1['AGE'],bins=15,data=df_continuous1, hue ="Target",palette = color,multiple="stack")
+plt.legend(labels=["Died","Survived"],fontsize = 'large')
+plt.xlabel('Age (years)')
+```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature11.png?raw=true"/></div>
 
 
