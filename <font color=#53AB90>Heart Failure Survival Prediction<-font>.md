@@ -226,4 +226,20 @@ plt.xlabel('Death Events')
 ax.set_ylim([0,4])
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature9.png?raw=true"/></div>
+
+As seen in the boxplot, patients are more likely to die in heart failure when their serum creatinine is higher than the normal range.
+
+#### <font color=#FFA689>Ejection Fraction</font>
+
+Let's have a look at the distribution of the feature Serum Creatinine. 
+
+```
+plt.figure(figsize=(10,7))
+ax = sns.histplot(x=df_continuous1['EFR'],bins=15,data=df_copy, hue ="Target",palette = color,multiple="stack")
+plt.legend(labels=["Died","Survived"],fontsize = 'large')
+plt.xlabel('Ejection Fraction (%)')
+```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature9.png?raw=true"/></div>
+
+
