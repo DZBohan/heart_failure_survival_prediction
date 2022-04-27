@@ -16,7 +16,7 @@ I will also solve some problem when training models with small size datasets. I 
 
 ## <font color=#FFA689>2. Importing Libraries</font>
 
-The following libraries were used in this project.
+The following libraries were used in this project. The Imblearn package needs to be installed. See 5.1 Imbalance Issue for details.
 
 
 ```
@@ -36,6 +36,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import GradientBoostingClassifier
+from collections import Counter
+from imblearn.over_sampling import RandomOverSampler
 ```
 
 
@@ -391,12 +393,27 @@ y = df_continuous1['Target']
 
 ### <font color=#FFA689>5.1 Imbalance Issue</font>
 
-In Chapter 3, I evaluated the targets of the dataset and found that there was an imbalance issue. There are 
+In Chapter 3, I evaluated the targets of the dataset and found that there was an imbalance issue. There are 96 death and 203 survival in the dataset.
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model1.png?raw=true"/></div>
 
 Now, I will use the imbalance-learn package to solve this problem. First, let's install the imbalance-learn package.
 
 ```
 pip install imbalance-learne
 ```
+The imbalance-learn package has both random oversampling and random undersampling functions. Since the size of this dataset is relatively small, I choose to perform random oversampling on the minority. 
+
+I have imported the RandomOverSampler in the second chapter. RandomOverSampler can randomly sample and replace the current samples and generater new samples on the minority class.
+
+```
+oversample = RandomOverSampler(sampling_strategy='minority')
+X_over, y_over = oversample.fit_resample(X, y)
+print(Counter(y))
+print(Counter(y_over))
+```
+
+Because the sampling process is random, the dataset will change after each oversampling, which will cause some problems that I will explain in detail in later chapters.
+
 
 
