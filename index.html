@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>README.md</title>
+<title>Heart Failure Survival Prediction.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -365,16 +365,90 @@ code {
           : 'default'
     });
   </script>
-<h1 id="center-font-color53ab90heart-failure-survival-predictionfont-center"><center> <font color=#53AB90>Heart Failure Survival Prediction</font> </center></h1>
-<h2 id="center-font-colorffa689bohan-zhangfont-center"><center> <font color=#FFA689>Bohan Zhang</font> </center></h2>
+<h1 id="span-id%22jump%22centerfont-color53ab90heart-failure-survival-predictionfontcenterspan"><span id="jump"><center><font color=#53AB90>Heart Failure Survival Prediction</font></center></span></h1>
+<h2 id="centerfont-colorffa689bohan-zhangfontcenter"><center><font color=#FFA689>Bohan Zhang</font></center></h2>
 <div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true"/></div>
-<h2 id="font-colorffa6891-introductionfont"><font color=#FFA689>1. Introduction</font></h2>
+<h2 id="font-color53ab90indexfont"><font color=#53AB90>Index</font></h2>
+<ul>
+<li>
+<p><a href="#1">1. Introduction</a></p>
+</li>
+<li>
+<p><a href="#2">2. Importing Libraries</a></p>
+</li>
+<li>
+<p><a href="#3">3. Dataset</a></p>
+<ul>
+<li>
+<p><a href="#3.1">3.1 Loading the Dataset</a></p>
+</li>
+<li>
+<p><a href="#3.2">3.2 Evaluating the Target</a></p>
+</li>
+<li>
+<p><a href="#3.3">3.3 Features Distribution</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#4">4. Feature Selection</a></p>
+<ul>
+<li>
+<p><a href="#4.1">4.1 Continous Features</a></p>
+</li>
+<li>
+<p><a href="#4.2">4.2 Categorical Features</a></p>
+</li>
+<li>
+<p><a href="#4.3">4.3 Final Features</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#5">5. Model Selection</a></p>
+<ul>
+<li>
+<p><a href="#5.1">5.1 Imbalance Issue</a></p>
+</li>
+<li>
+<p><a href="#5.2">5.2 Dataset Splitting</a></p>
+</li>
+<li>
+<p><a href="#5.3">5.3 Standardization</a></p>
+</li>
+<li>
+<p><a href="#5.4">5.4 Find the Best Model</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#6">6. Random Forest</a></p>
+<ul>
+<li>
+<p><a href="#6.1">6.1 Hyperparameters Tuning</a></p>
+</li>
+<li>
+<p><a href="#6.2">6.2 Feature Importance</a></p>
+</li>
+<li>
+<p><a href="#6.3">6.3 Final Features</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#7">7. Conclusion</a></p>
+</li>
+<li>
+<p><a href="#8">References</a></p>
+</li>
+</ul>
+<h2 id="h2-id%221%22font-colorffa6891-introductionfonth2"><h2 id="1"><font color=#FFA689>1. Introduction</font></h2></h2>
 <p>Heart failure is a serious condition in which the heart is unable to produce enough blood to supply the entire body. Approximately 6.2 million adults in the United States have heart failure. In 2018, close to 400,000 deaths across the United States were associated with heart failure <a href="https://www.cdc.gov/heartdisease/heart_failure.htm">[1]</a>.</p>
 <p>The dataset used in this study was from the <font color=#53AB90>UC Irvine Machine Learning Repository</font> and was collected by Krembil Research Institute, Canada. All patients in the dataset were from <font color=#53AB90>Pakistan</font>, and data were collected from a specific time of April to December 2015 <a href="https://archive.ics.uci.edu/ml/datasets/Heart+failure+clinical+records">[2]</a>.</p>
 <p>Death of heart failure is associated with location <a href="https://www.cdc.gov/heartdisease/heart_failure.htm">[1]</a>. Prior to this dataset, there were few studies related to heart failure in Pakistani, so this dataset is of great importance.</p>
 <p>The goal of this study is to select appropriate features and models to predict survival in heart failure based on this dataset. This will enable hospitals to have a clearer picture of the patients’ condition when admitting them and make appropriate preparations and treatment plans.</p>
 <p>I will also solve some problem when training models with small size datasets. I used jupter notebook to do this project.</p>
-<h2 id="font-colorffa6892-importing-librariesfont"><font color=#FFA689>2. Importing Libraries</font></h2>
+<h2 id="h2-id%222%22font-colorffa6892-importing-librariesfonth2"><h2 id="2"><font color=#FFA689>2. Importing Libraries</font></h2></h2>
 <p>The following libraries were used in this project. The Imblearn package needs to be installed. See 5.1 Imbalance Issue for details.</p>
 <pre class="hljs"><code><div>import numpy as np
 import pandas as pd
@@ -396,11 +470,11 @@ from sklearn.ensemble import GradientBoostingClassifier
 from collections import Counter
 from imblearn.over_sampling import RandomOverSampler
 </div></code></pre>
-<h2 id="font-colorffa6893-datasetfont"><font color=#FFA689>3. Dataset</font></h2>
+<h2 id="h2-id%223%22font-colorffa6893-datasetfontfonth2"><h2 id="3"><font color=#FFA689>3. Dataset</font></font></h2></h2>
 <p>Let's first look at the information on the dataset provided by the UC Irvine Machine Learning Repository.</p>
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset1.png?raw=true"/></div>
 <p>The dataset contains 299 samples and 13 features. The good news is that there are no missing values.</p>
-<h3 id="font-colorffa68931-loading-the-datasetfont"><font color=#FFA689>3.1 Loading the Dataset</font></h3>
+<h3 id="h2-id%2231%22font-colorffa68931-loading-the-datasetfonth2"><h2 id="3.1"><font color=#FFA689>3.1 Loading the Dataset</font></h2></h3>
 <p>Let's load the dataset and see the description.</p>
 <pre class="hljs"><code><div>df = pd.read_csv('../datasets/heart_failure_clinical_records_dataset.csv')
 df.describe().T
@@ -420,7 +494,7 @@ df.describe().T
 df_copy.head(10)
 </div></code></pre>
 <div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset4.png?raw=true"/></div>
-<h3 id="font-colorffa68932-evaluating-the-targetfont"><font color=#FFA689>3.2 Evaluating the Target</font></h3>
+<h3 id="h2-id%2232%22font-colorffa68932-evaluating-the-targetfonth2"><h2 id="3.2"><font color=#FFA689>3.2 Evaluating the Target</font></h2></h3>
 <p>Now, let's visualize the target, death event of heart failure.</p>
 <pre class="hljs"><code><div>color=[&quot;#8cc7b5&quot;,&quot;#ffc7b5&quot;]
 plt.figure(figsize=(10,7))
@@ -430,7 +504,7 @@ plt.ylabel('Count')
 </div></code></pre>
 <div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset5.png?raw=true"/></div>
 <p>There is an imbalance in the target of the dataset, so I will come to solve this problem later.</p>
-<h3 id="font-colorffa68933-features-distributionfont"><font color=#FFA689>3.3 Features Distribution</font></h3>
+<h3 id="h2-id%2233%22font-colorffa68933-features-distributionfonth2"><h2 id="3.3"><font color=#FFA689>3.3 Features Distribution</font></h2></h3>
 <p>Let's take a look at the distribution of features in general, and later I will analyze specifically the features that will be used in this project.</p>
 <pre class="hljs"><code><div>index = 0
 plt.figure(figsize=(20, 10))
@@ -444,7 +518,7 @@ for i in feature:
 plt.show()
 </div></code></pre>
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/dataset6.png?raw=true"/></div>
-<h2 id="font-colorffa6894-feature-selectionfont"><font color=#FFA689>4. Feature Selection</font></h2>
+<h2 id="h2-id%224%22font-colorffa6894-feature-selectionfonth2"><h2 id="4"><font color=#FFA689>4. Feature Selection</font></h2></h2>
 <p>There are 7 continuous features and 5 categorical features in this dataset. First, let's focus on the feature of <font color=#53AB90>time</font>. This feature is patients' follow-up period. The entire data collection lasted for more than 9 months. Let's first look at the distribution of this feature.</p>
 <pre class="hljs"><code><div>color=[&quot;#8cc7b5&quot;,&quot;#ffc7b5&quot;]
 plt.figure(figsize=(10,7))
@@ -466,7 +540,7 @@ df_copy.head(10)
 </div></code></pre>
 <div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature3.png?raw=true"/></div>
 <p>Now, I have 6 continuous features and 5 categorical features in this dataset. I am going to analyze the continuous features and categorical features separately.</p>
-<h3 id="font-colorffa68941-continous-featuresfont"><font color=#FFA689>4.1 Continous Features</font></h3>
+<h3 id="h2-id%2241%22font-colorffa68941-continous-featuresfonth2"><h2 id="4.1"><font color=#FFA689>4.1 Continous Features</font></h2></h3>
 <p>First, I'll analyze and select the continuous features. I remove the categorical features from the dataset and create a new dataframe df_continuous.</p>
 <pre class="hljs"><code><div>df_continuous = df_copy.drop(['ANA','DIA','HBP','SEX','SMO'],axis=1)
 df_continuous.head(10)
@@ -563,7 +637,7 @@ ax.set_ylim([125,150])
 </div></code></pre>
 <div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature15.png?raw=true"/></div>
 <p>As seen in the boxplot, patients are more likely to die in heart failure when their serum sodium is lower than the normal range.</p>
-<h3 id="font-colorffa68942-categorical-featuresfont"><font color=#FFA689>4.2 Categorical Features</font></h3>
+<h3 id="h2-id%2242%22font-colorffa68942-categorical-featuresfonth2"><h2 id="4.2"><font color=#FFA689>4.2 Categorical Features</font></h2></h3>
 <p>I remove the continuous features from the df_copy dataframe, keeping only the 5 categorical features, and create a new dataframe df_categorical.</p>
 <pre class="hljs"><code><div>df_categorical = df_copy.drop([&quot;AGE&quot;,&quot;CPK&quot;,&quot;EFR&quot;,&quot;PLA&quot;,&quot;SCR&quot;,&quot;SSO&quot;],axis=1)
 df_categorical.head(10)
@@ -610,17 +684,17 @@ ax.set_title(&quot;Cramér's V Correlation between Boolean Features&quot;);
 <li>Removing two features can improve future data collection efficiency</li>
 <li>Removing two features can speed up training</li>
 </ul>
-<h3 id="font-colorffa68943-final-featuresfont"><font color=#FFA689>4.3 Final Features</font></h3>
+<h3 id="h2-id%2243%22font-colorffa68943-final-featuresfonth2"><h2 id="4.3"><font color=#FFA689>4.3 Final Features</font></h2></h3>
 <p>In summary, I kept only 4 continuous features, erum creatinine, ejection fraction, age, and serum sodium for the next model training. The data frame used is df_continuous1.</p>
 <pre class="hljs"><code><div>df_continuous1.head(10)
 </div></code></pre>
 <div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature19.png?raw=true"/></div>
-<h2 id="font-colorffa6895-model-selectionfont"><font color=#FFA689>5 Model Selection</font></h2>
+<h2 id="h2-id%225%22font-colorffa6895-model-selectionfonth2"><h2 id="5"><font color=#FFA689>5 Model Selection</font></h2></h2>
 <p>First, I assign the four selected features to the variable X and the target to the variable y.</p>
 <pre class="hljs"><code><div>X = df_continuous1.drop(columns='Target')
 y = df_continuous1['Target']
 </div></code></pre>
-<h3 id="font-colorffa68951-imbalance-issuefont"><font color=#FFA689>5.1 Imbalance Issue</font></h3>
+<h3 id="h2-id%2251%22font-colorffa68951-imbalance-issuefonth2"><h2 id="5.1"><font color=#FFA689>5.1 Imbalance Issue</font></h2></h3>
 <p>In Chapter 3, I evaluated the targets of the dataset and found that there was an imbalance issue. There are 96 death and 203 survival in the dataset.</p>
 <div align=center><img width =30% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model1.png?raw=true"/></div>
 <p>Now, I will use the <font color=#53AB90>imbalance-learn package</font> to solve this problem. First, let's install the imbalance-learn package.</p>
@@ -636,13 +710,13 @@ print(Counter(y_over))
 <div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model2.png?raw=true"/></div>
 <p>It can be seen that the minority class in the dataset, i.e., death, went from 96 samples to 203.</p>
 <p>Because the sampling process is random, the dataset will change after each oversampling, which will cause some problems that I will explain in detail in later chapters.</p>
-<h3 id="font-colorffa68952-dataset-splittingfont"><font color=#FFA689>5.2 Dataset Splitting</font></h3>
+<h3 id="h2-id%2252%22font-colorffa68952-dataset-splittingfonth2"><h2 id="5.2"><font color=#FFA689>5.2 Dataset Splitting</font></h2></h3>
 <p>Now, I am going to splitting the dataset into training dataset and test dataset. Training set is for training the model, and test set is for testing the model with new, unseen data points.</p>
 <p>One important reason of splitting the dataset is to avoid the overfitting problem. Overfitting means a model has good performance on training dataset but has poor performance on the new data points.</p>
 <p>Let's split the dataset. I selected 80% of the data points as the training set and 20% of the data points as the test set.</p>
 <pre class="hljs"><code><div>X_train, X_test, y_train, y_test = train_test_split(X_over, y_over, test_size=0.20, random_state=20)
 </div></code></pre>
-<h3 id="font-colorffa68953-standardizationfont"><font color=#FFA689>5.3 Standardization</font></h3>
+<h3 id="h2-id%2253%22font-colorffa68953-standardizationfonth2"><h2 id="5.3"><font color=#FFA689>5.3 Standardization</font></h2></h3>
 <p>Some models, such as logistic regression, require standardization of the dataset, so I use <font color=#53AB90>StandardScaler</font> for standardization.</p>
 <pre class="hljs"><code><div>sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
@@ -660,7 +734,7 @@ plt.show()
 <div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model3.png?raw=true"/></div>
 <p>This is the features' scale after standardization.</p>
 <div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model4.png?raw=true"/></div>
-<h3 id="font-colorffa68954-find-the-best-modelfont"><font color=#FFA689>5.4 Find the Best Model</font></h3>
+<h3 id="h2-id%2254%22font-colorffa68954-find-the-best-modelfonth2"><h2 id="5.4"><font color=#FFA689>5.4 Find the Best Model</font></h2></h3>
 <p>Here I applied a function called <font color=#53AB90>GridSearchCV</font> which uses <font color=#53AB90>cross-validation</font> and is able to get average score on five different models, logistic regression, decision tree, random forest, XGBoost, gradient boost.</p>
 <pre class="hljs"><code><div>def find_best_model(X, y):
     models = {
@@ -725,11 +799,11 @@ find_best_model(X_train, y_train)
 <p>However, I faced a challenge in this step. The scores of models vary each time using RandomOversampler to replace the minority class of the target. As I mentioned in the section 5.1, because the sampling process is random, the dataset will change after each oversampling. This is the reason why the socres are different each time. The solution of this problem is to try multiple time to see if there is a model is consistently best. Here I tried GridSearchCV for four times, and this is the result.</p>
 <div align=center><img width =50% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model6.png?raw=true"/></div>
 <p>As shown in the table, the overall ranking of the scores remains consistent, and random forest is relatively the best. Therefore, I will choose random forest as the model.</p>
-<h2 id="font-colorffa6896-random-forestfont"><font color=#FFA689>6 Random Forest</font></h2>
+<h2 id="h2-id%226%22font-colorffa6896-random-forestfonth2"><h2 id="6"><font color=#FFA689>6 Random Forest</font></h2></h2>
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf1.png?raw=true"/></div>
 <p>Random forest, a Supervised Machine Learning Algorithm, can build decision trees on different samples and takes their majority vote for classification.</p>
 <p>In this section, I will use the training set to train the random forest model, tune the hyperparameters of the model to give it the best performance, and then test the accuracy on the test set.</p>
-<h3 id="font-colorffa68961-hyperparameters-tuningfont"><font color=#FFA689>6.1 Hyperparameters Tuning</font></h3>
+<h3 id="h2-id%2261%22font-colorffa68961-hyperparameters-tuningfonth2"><h2 id="6.1"><font color=#FFA689>6.1 Hyperparameters Tuning</font></h2></h3>
 <p>Hyperparameters are model's parameters used to control the learning process. Tuning hyperparameters can improve the performance of the model. There are many hyperparameters of random forest.</p>
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf2.png?raw=true"/></div>
 <h4 id="font-colorffa689training-with-default-hyperparametersfont"><font color=#FFA689>Training with Default Hyperparameters</font></h4>
@@ -939,7 +1013,7 @@ plt.legend(loc = &quot;best&quot;)
 </div></code></pre>
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf14.png?raw=true"/></div>
 <p>It can be seen that the overfitting problem is improved in general rather than just for one specific random oversampling, and all scores of test set are more than 70%. Therefore, the hyperparameters tuning is effective.</p>
-<h3 id="font-colorffa68962-feature-importancefont"><font color=#FFA689>6.2 Feature Importance</font></h3>
+<h3 id="h2-id%2262%22font-colorffa68962-feature-importancefonth2"><h2 id="6.2"><font color=#FFA689>6.2 Feature Importance</font></h2></h3>
 <p>Now, I am going to verify the importance of the four features I have chosen in the random forest model.</p>
 <pre class="hljs"><code><div>feat_labels = df_continuous1.columns[:-1]
 
@@ -994,7 +1068,7 @@ plt.legend(loc = &quot;best&quot;)
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf17.png?raw=true"/></div>
 <p>The two green lines are the scores of the training and test sets when the feature serum sodium is retained, and the pink lines are the scores of the training and test sets after the feature serum sodium is removed. It can be seen that whether the feature serum sodium is removed or not has no significant effect on the performance of the model.</p>
 <p>Therefore, in order to improve the speed of model training and the convenience of future data collection, I decided to remove the feature serum sodium and keep only three features, serum creatinine, ejection fraction and age, to train the model. The final performance of the model has been listed in the table above.</p>
-<h2 id="font-colorffa6897-conclusionfont"><font color=#FFA689>7 Conclusion</font></h2>
+<h2 id="h2-id%227%22font-colorffa6897-conclusionfonth2"><h2 id="7"><font color=#FFA689>7 Conclusion</font></h2></h2>
 <p>In this project, I used 3 features, serum creatinine, ejection fraction and age, to train the random forest model with a small size dataset, which only has 299 data points. I used random oversampling to resolve imbalances in the dataset. For the model, I tuned the hyperparameters (n_estimators=40, max_depth=4, min_samples_leaf=12, min_samples_split=40). The overfitting problem still exists, but is well improved. Scores on test set remain in the 70-80 range after random oversampling. The following line chart shows the performance of the model.</p>
 <pre class="hljs"><code><div>plt.figure(figsize=(10, 5))
 x = [1,2,3,4,5,6,7,8,9,10]
@@ -1009,11 +1083,12 @@ plt.legend(loc = &quot;best&quot;)
 </div></code></pre>
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf18.png?raw=true"/></div>
 <p>This project achieves model training and overfitting problem improvement for small data sets. Moreover, this project also achieved to predict the survival of heart failure patients using only three metrics, serum creatinine, ejection fraction and age. Among these three metrics, age is easily accessible, meaning that the ability of a patient to survive heart failure can be predicted by measuring only two of the metrics, serum creatinine, ejection fraction, with a correct rate close to 80%. Therefore, this project is of great importance for the future preparation of patients with heart failure for treatment.</p>
-<h2 id="font-colorffa689referencesfont"><font color=#FFA689>References</font></h2>
+<h2 id="h2-id%228%22font-colorffa689referencesfonth2"><h2 id="8"><font color=#FFA689>References</font></h2></h2>
 <p>[1] Heart Failure. Centers for Disease Control and Prevention. <a href="https://www.cdc.gov/heartdisease/heart_failure.htm">https://www.cdc.gov/heartdisease/heart_failure.htm</a></p>
 <p>[2] Heart failure clinical records Data Set. UCI Machine Learning Repository. <a href="https://archive.ics.uci.edu/ml/datasets/Heart+failure+clinical+records">https://archive.ics.uci.edu/ml/datasets/Heart+failure+clinical+records</a></p>
 <p>[3] Highest Recorded Serum Creatinine (2021). Hindawi. <a href="https://www.hindawi.com/journals/crin/2021/6048919/">https://www.hindawi.com/journals/crin/2021/6048919/
 </a></p>
+<h3 id="centerback-to-topcenter"><center><a href="#jump">Back to Top</a></center></h3>
 
 </body>
 </html>
