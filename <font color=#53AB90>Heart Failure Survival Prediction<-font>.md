@@ -659,6 +659,42 @@ pyplot.plot(values, test_scores, '-o', label='Test', color='#ffc7b5')
 pyplot.legend()
 pyplot.show()
 ```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf7.png?raw=true"/></div>
+
+When n_estimators is 40 or 50, the model has the best performance on the test set. When n_estimators is 40, the difference between the performance on the training set and test set is lower, so I choose the value of 40.
+
+Then, let's tune max_depth. I'll use a range of 1 to 20 to generate the scores. I set n_estimator as 40, and other hyperparameters are default values.
+
+```
+values = [i for i in range(1, 21)]
+# define lists to collect scores
+train_scores, test_scores = list(), list()
+
+for i in values:
+    # configure the model
+    model = RandomForestClassifier(n_estimators=40, max_depth=i,random_state=20)
+    # fit model on the training dataset
+    model.fit(X_train, y_train)
+    # evaluate on the train dataset
+    y_train_pred = model.predict(X_train)
+    train_acc = accuracy_score(y_train, y_train_pred)
+    train_scores.append(train_acc)
+    # evaluate on the test dataset
+    y_test_pred = model.predict(X_test)
+    test_acc = accuracy_score(y_test, y_test_pred)
+    test_scores.append(test_acc)
+```
+
+Now, let's plot a line chart to see the trend and find the best point.
+
+```
+from matplotlib import pyplot
+plt.figure(figsize=(15,7))
+pyplot.plot(values, train_scores, '-o', label='Train',color='#8cc7b5')
+pyplot.plot(values, test_scores, '-o', label='Test',color='#ffc7b5')
+pyplot.legend()
+pyplot.show()
+```
 
 
 
