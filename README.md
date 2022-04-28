@@ -1,5 +1,7 @@
 # <center> <font color=#53AB90>Heart Failure Survival Prediction</font> </center>
 
+## <center> <font color=#FFA689>Bohan Zhang</font> </center>
+
 <div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true"/></div>
 
 ## <font color=#FFA689>1. Introduction</font>
