@@ -4,11 +4,11 @@
 
 ## <font color=#FFA689>1. Introduction</font>
 
-Heart failure is a serious condition in which the heart is unable to produce enough blood to supply the entire body. Approximately 6.2 million adults in the United States have heart failure. In 2018, close to 400,000 deaths across the United States were associated with heart failure [1].
+Heart failure is a serious condition in which the heart is unable to produce enough blood to supply the entire body. Approximately 6.2 million adults in the United States have heart failure. In 2018, close to 400,000 deaths across the United States were associated with heart failure [[1]](https://www.cdc.gov/heartdisease/heart_failure.htm).
 
-The dataset used in this study was from the UC Irvine Machine Learning Repository and was collected by Krembil Research Institute, Canada. All patients in the dataset were from Pakistan, and data were collected from a specific time of April to December 2015 [2].
+The dataset used in this study was from the <font color=#53AB90>UC Irvine Machine Learning Repository</font> and was collected by Krembil Research Institute, Canada. All patients in the dataset were from <font color=#53AB90>Pakistan</font>, and data were collected from a specific time of April to December 2015 [[2]](https://archive.ics.uci.edu/ml/datasets/Heart+failure+clinical+records).
 
-Death of heart failure is associated with location [1]. Prior to this dataset, there were few studies related to heart failure in Pakistani, so this dataset is of great importance.
+Death of heart failure is associated with location [[1]](https://www.cdc.gov/heartdisease/heart_failure.htm). Prior to this dataset, there were few studies related to heart failure in Pakistani, so this dataset is of great importance.
 
 The goal of this study is to select appropriate features and models to predict survival in heart failure based on this dataset. This will enable hospitals to have a clearer picture of the patients’ condition when admitting them and make appropriate preparations and treatment plans.
 
@@ -119,7 +119,7 @@ plt.show()
 
 ## <font color=#FFA689>4. Feature Selection</font>
 
-There are 7 continuous features and 5 categorical features in this dataset. First, let's focus on the feature of time. This feature is patients' follow-up period. The entire data collection lasted for more than 9 months. Let's first look at the distribution of this feature.
+There are 7 continuous features and 5 categorical features in this dataset. First, let's focus on the feature of <font color=#53AB90>time</font>. This feature is patients' follow-up period. The entire data collection lasted for more than 9 months. Let's first look at the distribution of this feature.
 
 ```
 color=["#8cc7b5","#ffc7b5"]
@@ -219,7 +219,7 @@ plt.xlabel('Serum Creatinine (mg/dL)')
 
 <div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/feature8.png?raw=true"/></div>
 
-The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some data points have values higher than 4. I had regarded them as outliers. However, I found that the highest record of serum creatinine is 73.8 mg/dL [3], meaning they are not outliers. 
+The normal range of serum creatinine is 0.6 - 1.3 mg/dL. In the histogram, some data points have values higher than 4. I had regarded them as outliers. However, I found that the highest record of serum creatinine is 73.8 mg/dL [[3]](https://www.hindawi.com/journals/crin/2021/6048919/), meaning they are not outliers. 
 
 ```
 plt.figure(figsize=(10,7))
@@ -340,7 +340,7 @@ def cramers_corrected_stat(confusion_matrix):
     return np.sqrt(phi2corr / min( (kcorr-1), (rcorr-1)))
 ```
 
-I used this `cramers_corrected_stat` function to measure the correlation between categorical features in the dataset and to plot the heat map.
+I used this <font color=#53AB90>cramers_corrected_stat</font> function to measure the correlation between categorical features in the dataset and to plot the heat map.
 
 ```
 cols = ['ANA','DIA','HBP','SEX','SMO','Target']
@@ -398,14 +398,14 @@ In Chapter 3, I evaluated the targets of the dataset and found that there was an
 
 <div align=center><img width =30% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/model1.png?raw=true"/></div>
 
-Now, I will use the imbalance-learn package to solve this problem. First, let's install the imbalance-learn package.
+Now, I will use the <font color=#53AB90>imbalance-learn package</font> to solve this problem. First, let's install the imbalance-learn package.
 
 ```
 pip install imbalance-learne
 ```
 The imbalance-learn package has both random oversampling and random undersampling functions. Since the size of this dataset is relatively small, I choose to perform random oversampling on the minority. 
 
-I have imported the RandomOverSampler in the second chapter. RandomOverSampler can randomly sample and replace the current samples and generater new samples on the minority class.
+I have imported the <font color=#53AB90>RandomOverSampler</font> in the second chapter. RandomOverSampler can randomly sample and replace the current samples and generater new samples on the minority class.
 
 ```
 oversample = RandomOverSampler(sampling_strategy='minority')
@@ -435,7 +435,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_over, y_over, test_size=0.
 
 ### <font color=#FFA689>5.3 Standardization</font>
 
-Some models, such as logistic regression, require standardization of the dataset, so I use StandardScaler for standardization.
+Some models, such as logistic regression, require standardization of the dataset, so I use <font color=#53AB90>StandardScaler</font> for standardization.
 
 ```
 sc = StandardScaler()
@@ -465,7 +465,7 @@ This is the features' scale after standardization.
 ### <font color=#FFA689>5.4 Find the Best Model</font>
 
 
-Here I applied a function called GridSearchCV which uses cross-validation and is able to get average score on five different models, logistic regression, decision tree, random forest, XGBoost, gradient boost.
+Here I applied a function called <font color=#53AB90>GridSearchCV</font> which uses <font color=#53AB90>cross-validation</font> and is able to get average score on five different models, logistic regression, decision tree, random forest, XGBoost, gradient boost.
 
 ```
 def find_best_model(X, y):
@@ -573,7 +573,7 @@ plt.ylabel('Actual Values')
 plt.show()
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf3.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf3.png?raw=true"/></div>
 
 As shown in the figure, of the 82 predictions, 73 were correct and 9 were incorrect, including two predictions of death as survival and seven predictions of survival as death.
 
@@ -584,7 +584,7 @@ score = round(accuracy_score(y_test, y_pred),4)*100
 print("Accuracy on test set: {}%".format(score))
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf4.png?raw=true"/></div>
+<div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf4.png?raw=true"/></div>
 
 The accuracy of the model on the test set is 89.02%, which is a good result. Now I test the performance of the model on the training set to see if there is any overfitting issue.
 
@@ -603,7 +603,7 @@ plt.xlabel('Predicted Values')
 plt.ylabel('Actual Values')
 plt.show()
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf5.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf5.png?raw=true"/></div>
 
 Then, I generate the accuracy on training set.
 
@@ -612,7 +612,7 @@ score = round(accuracy_score(y_train, y_train_pred),4)*100
 print("Accuracy on trainning set: {}%".format(score))
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf6.png?raw=true"/></div>
+<div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf6.png?raw=true"/></div>
 
 The accuracy of the model on the training set is 100%, which is much higher the the accuracy on the test set, so there is a overfitting issue. I need to tune the hyperparameters to solve this problem.
 
@@ -785,14 +785,14 @@ score2 = round(accuracy_score(y_train, y_train_pred),4)*100
 print("Accuracy on trainning set: {}%".format(score2))
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf11.png?raw=true"/></div>
+<div align=center><img width =20% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf11.png?raw=true"/></div>
 
 The score on the test set is 80.49%, and the score on the training set is 80.86%. It seems that the overfitting issue is improved, and the score on the test set is relatively good.
 
 
 However, the same problem mentioning in the section 5.4 occurs. The scores of models vary each time using RandomOversampler to replace the minority class of the target. So the hyperparameters might be just suitable for the specific oversampling. To verify that the hyperparameters are applicable to all oversampling scenarios, I tried multiple time to see if the overfitting issue is improved consistently. Here are the scores on test and training set.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf12.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf12.png?raw=true"/></div>
 
 Then I am going to visualize the contents of the table.
 
@@ -863,7 +863,7 @@ plt.xlim([-1, X_train.shape[1]])
 plt.tight_layout()
 plt.show()
 ```
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf15.png?raw=true"/></div>
+<div align=center><img width =30% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf15.png?raw=true"/></div>
 
 As shown in the figure, the importance of the feature serum sodium is very minor for the random forest model. Therefore, I am going to consider whether to remove it or not.
 
@@ -876,7 +876,7 @@ I randomly oversampled df_continuous1 and df_continuous2 ten times and used them
 
 Here is the table recoding the scores of test set and training set before removing and after removing the feature serum sodium.
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf16.png?raw=true"/></div>
+<div align=center><img width =40% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf16.png?raw=true"/></div>
 
 Then I am going to visualize the contents of the table.
 
@@ -921,4 +921,15 @@ plt.ylabel("Scores")
 plt.legend(loc = "best")
 ```
 
-<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf17.png?raw=true"/></div>
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf18.png?raw=true"/></div>
+
+This project achieves model training and overfitting problem improvement for small data sets. Moreover, this project also achieved to predict the survival of heart failure patients using only three metrics, serum creatinine, ejection fraction and age. Among these three metrics, age is easily accessible, meaning that the ability of a patient to survive heart failure can be predicted by measuring only two of the metrics, serum creatinine, ejection fraction, with a correct rate close to 80%. Therefore, this project is of great importance for the future preparation of patients with heart failure for treatment.
+
+## <font color=#FFA689>References</font>
+
+[1] Heart Failure. Centers for Disease Control and Prevention. [https://www.cdc.gov/heartdisease/heart_failure.htm](https://www.cdc.gov/heartdisease/heart_failure.htm)
+
+[2] Heart failure clinical records Data Set. UCI Machine Learning Repository. [https://archive.ics.uci.edu/ml/datasets/Heart+failure+clinical+records](https://archive.ics.uci.edu/ml/datasets/Heart+failure+clinical+records)
+
+[3] Highest Recorded Serum Creatinine (2021). Hindawi. [https://www.hindawi.com/journals/crin/2021/6048919/
+](https://www.hindawi.com/journals/crin/2021/6048919/)
