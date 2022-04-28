@@ -796,7 +796,7 @@ However, the same problem mentioning in the section 5.4 occurs. The scores of mo
 
 Then I am going to visualize the contents of the table.
 
-This is the line chart of before tuning the hyperparameters.
+This is the line chart of scores of test set and training set before tuning the hyperparameters.
 
 ```
 plt.figure(figsize=(10, 5))
@@ -810,5 +810,61 @@ plt.xlabel("Numbers")
 plt.ylabel("Scores")
 plt.legend(loc = "best")
 ```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf13.png?raw=true"/></div>
+
+This is the line chart of scores of test set and training set after tuning the hyperparameters.
+
+```
+plt.figure(figsize=(10, 5))
+x = [1,2,3,4,5]
+k1 = [76.83,79.27,76.83,74.39,79.27]
+k2 = [79.01,80.56,82.1,80.25,80.25]
+plt.plot(x,k1,'s-',color = '#8cc7b5',label="Train")
+plt.plot(x,k2,'o-',color = '#ffc7b5',label="Test")
+plt.ylim((60,120))
+plt.xlabel("Numbers")
+plt.ylabel("Scores")
+plt.legend(loc = "best")
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf14.png?raw=true"/></div>
+
+It can be seen that the overfitting problem is improved in general rather than just for one specific random oversampling, and all scores of test set are more than 70%. Therefore, the hyperparameters tuning is effective.
+
+### <font color=#FFA689>5.2 Feature Importance</font>
+
+Now, I am going to verify the importance of the four features I have chosen in the random forest model.
+
+```
+feat_labels = df_continuous1.columns[:-1]
+
+classifier = RandomForestClassifier(n_estimators=40, max_depth=4, min_samples_leaf=12, min_samples_split=40,random_state=20)
+
+classifier.fit(X_train, y_train)
+importances = classifier.feature_importances_
+
+indices = np.argsort(importances)[::-1]
+
+for f in range(X_train.shape[1]):
+    print("%2d) %-*s %f" % (f + 1, 30,
+                            feat_labels[indices[f]], 
+                            importances[indices[f]]))
+
+plt.figure(figsize=(8, 8))
+plt.title('Feature importance')
+plt.bar(range(X_train.shape[1]), 
+        importances[indices],
+        align='center', color=colours)
+
+plt.xticks(range(X_train.shape[1]), 
+           feat_labels[indices], rotation=90)
+plt.xlim([-1, X_train.shape[1]])
+plt.tight_layout()
+plt.show()
+```
+
+
+
 
 
