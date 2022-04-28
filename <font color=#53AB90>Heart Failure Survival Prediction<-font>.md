@@ -730,3 +730,43 @@ pyplot.legend()
 pyplot.show()
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf9.png?raw=true"/></div>
+
+When min_samples_leaf is 12, the model has best performance on the test set, and the difference between performance on the test set and training set is smallest, I will set min_samples_leaf as 12.
+
+
+Last, let's tune min_samples_split. I'll use a range of 2 to 100 with an interval of 2 to generate the scores. I set n_estimator as 40, max_depth as 4 and min_samples_split as 12.
+
+```
+
+values = [i for i in range(2, 101,2)]
+# define lists to collect scores
+train_scores, test_scores = list(), list()
+
+for i in values:
+    # configure the model
+    model = RandomForestClassifier(n_estimators=50, max_depth=4, min_samples_leaf=12, min_samples_split=i, random_state=20)
+    # fit model on the training dataset
+    model.fit(X_train, y_train)
+    # evaluate on the train dataset
+    y_train_pred = model.predict(X_train)
+    train_acc = accuracy_score(y_train, y_train_pred)
+    train_scores.append(train_acc)
+    # evaluate on the test dataset
+    y_test_pred = model.predict(X_test)
+    test_acc = accuracy_score(y_test, y_test_pred)
+    test_scores.append(test_acc)
+```
+
+Now, let's plot a line chart to see the trend and find the best point.
+
+```
+plt.figure(figsize=(15,7))
+pyplot.plot(values, train_scores, '-o', label='Train', color='#8cc7b5')
+pyplot.plot(values, test_scores, '-o', label='Test', color='#ffc7b5')
+pyplot.legend()
+pyplot.show()
+```
+
+
+
