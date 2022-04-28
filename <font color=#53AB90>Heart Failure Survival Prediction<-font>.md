@@ -785,6 +785,11 @@ score2 = round(accuracy_score(y_train, y_train_pred),4)*100
 print("Accuracy on trainning set: {}%".format(score2))
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf11.png?raw=true"/></div>
 
+The score on the test set is 80.49%, and the score on the training set is 80.86%. It seems that the overfitting issue is improved, and the score on the test set is relatively good.
+
+
+However, the same problem mentioning in the section 5.4 occurs. The scores of models vary each time using RandomOversampler to replace the minority class of the target. So the hyperparameters might be just suitable for the specific oversampling. To verify that the hyperparameters are applicable to all oversampling scenarios, I tried multiple time to see if the overfitting issue is improved consistently. Here
 
 
