@@ -732,7 +732,7 @@ pyplot.show()
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf9.png?raw=true"/></div>
 
-When min_samples_leaf is 12, the model has best performance on the test set, and the difference between performance on the test set and training set is smallest, I will set min_samples_leaf as 12.
+When min_samples_leaf is 12, the model has best performance on the test set, and the difference between performance on the test set and training set is smallest, so I will set min_samples_leaf as 12.
 
 
 Last, let's tune min_samples_split. I'll use a range of 2 to 100 with an interval of 2 to generate the scores. I set n_estimator as 40, max_depth as 4 and min_samples_split as 12.
@@ -767,6 +767,24 @@ pyplot.plot(values, test_scores, '-o', label='Test', color='#ffc7b5')
 pyplot.legend()
 pyplot.show()
 ```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf10.png?raw=true"/></div>
+
+When min_samples_split is in the range of 34 to 40, the model has best performance on the test set, and the difference between performance on the test set and training set is smallest, so I will set min_samples_leaf as 40.
+
+I have set all four hyperparameters, n_estimators=50, max_depth=4, min_samples_leaf=12 and min_samples_split=40. Now, I will training the model with these values of hyperparameters and see the scores both on test set and training set.
+
+```
+classifier = RandomForestClassifier(n_estimators=40, max_depth=4, min_samples_leaf=12, min_samples_split=40,random_state=20)
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+cm = confusion_matrix(y_test, y_pred)
+score = round(accuracy_score(y_test, y_pred),4)*100
+print("Accuracy on test set: {}%".format(score))
+y_train_pred = classifier.predict(X_train)
+score2 = round(accuracy_score(y_train, y_train_pred),4)*100
+print("Accuracy on trainning set: {}%".format(score2))
+```
+
 
 
 
