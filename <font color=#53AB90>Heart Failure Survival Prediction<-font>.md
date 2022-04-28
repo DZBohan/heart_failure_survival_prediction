@@ -574,10 +574,38 @@ plt.show()
 
 As shown in the figure, of the 82 predictions, 73 were correct and 9 were incorrect, including two predictions of death as survival and seven predictions of survival as death.
 
-Let generate the accuracy on test set.
+Let‘s generate the accuracy on test set.
 
 ```
 score = round(accuracy_score(y_test, y_pred),4)*100
 print("Accuracy on test set: {}%".format(score))
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf4.png?raw=true"/></div>
+
+The accuracy of the model on the test set is 89.02%, which is a good result. Now I test the performance of the model on the training set to see if there is any overfitting issue.
+
+```
+y_train_pred = classifier.predict(X_train)
+```
+
+This is the confusion matrix on training set.
+
+```
+cm = confusion_matrix(y_train, y_train_pred)
+plt.figure(figsize=(10,7))
+p = sns.heatmap(cm, annot=True, cmap=cmap, fmt='g')
+plt.title('Confusion matrix for Random Forest Classifier Model - Train Set')
+plt.xlabel('Predicted Values')
+plt.ylabel('Actual Values')
+plt.show()
+```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf5.png?raw=true"/></div>
+
+Then, I generate the accuracy on training set.
+
+```
+score = round(accuracy_score(y_train, y_train_pred),4)*100
+print("Accuracy on trainning set: {}%".format(score))
 ```
 
