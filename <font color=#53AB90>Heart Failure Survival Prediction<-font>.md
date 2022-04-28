@@ -863,7 +863,18 @@ plt.xlim([-1, X_train.shape[1]])
 plt.tight_layout()
 plt.show()
 ```
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf15.png?raw=true"/></div>
 
+As shown in the figure, the importance of the feature serum sodium is very minor for the random forest model. Therefore, I am going to consider whether to remove it or not.
+
+I created a dataframe called df_continuous2 removing serum sodium from df_continuous1.
+
+```
+df_continuous2 = df_continuous1.drop(['SSO'],axis=1)
+```
+I randomly oversampled df_continuous1 and df_continuous2 ten times and used them trained the model with the hyperparameters tuning in the section 5.1 separately. Then, I genrated the scores of test set and training set before removing and after removing the feature serum sodium. The code of training the model and genrating the scores is same as the code in section5.
+
+Here is the table recoding the scores of test set and training set before removing and after removing the feature serum sodium.
 
 
 
