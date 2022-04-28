@@ -27,6 +27,7 @@ import seaborn as sns
 import scipy.stats as ss
 import itertools
 import xgboost as xgb
+from matplotlib import pyplot
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
@@ -652,7 +653,6 @@ for i in values:
 Now, let's plot a line chart to see the trend and find the best point.
 
 ```
-from matplotlib import pyplot
 plt.figure(figsize=(15,7))
 pyplot.plot(values, train_scores, '-o', label='Train', color='#8cc7b5')
 pyplot.plot(values, test_scores, '-o', label='Test', color='#ffc7b5')
@@ -688,7 +688,6 @@ for i in values:
 Now, let's plot a line chart to see the trend and find the best point.
 
 ```
-from matplotlib import pyplot
 plt.figure(figsize=(15,7))
 pyplot.plot(values, train_scores, '-o', label='Train',color='#8cc7b5')
 pyplot.plot(values, test_scores, '-o', label='Test',color='#ffc7b5')
@@ -696,5 +695,38 @@ pyplot.legend()
 pyplot.show()
 ```
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf8.png?raw=true"/></div>
 
+When max_depth is 12, the model has best performance on the test set, but the difference between performance on the test set and training set is large. When max_depth is 4, the score on the test set is still more than 80%, and the difference looks smaller. Therefore, I perfer max_depth as 4.
+
+Let's tune min_samples_leaf next. I'll use a range of 1 to 20 to generate the scores. I set n_estimator as 40, max_depth as 4 and other hyperparameters are default values.
+
+```
+values = [i for i in range(1, 21)]
+# define lists to collect scores
+train_scores, test_scores = list(), list()
+
+for i in values:
+    # configure the model
+    model = RandomForestClassifier(n_estimators=40, max_depth=4, min_samples_leaf=i, random_state=20)
+    # fit model on the training dataset
+    model.fit(X_train, y_train)
+    # evaluate on the train dataset
+    y_train_pred = model.predict(X_train)
+    train_acc = accuracy_score(y_train, y_train_pred)
+    train_scores.append(train_acc)
+    # evaluate on the test dataset
+    y_test_pred = model.predict(X_test)
+    test_acc = accuracy_score(y_test, y_test_pred)
+    test_scores.append(test_acc)
+```
+Now, let's plot a line chart to see the trend and find the best point.
+
+```
+plt.figure(figsize=(15,7))
+pyplot.plot(values, train_scores, '-o', label='Train', color='#8cc7b5')
+pyplot.plot(values, test_scores, '-o', label='Test', color='#ffc7b5')
+pyplot.legend()
+pyplot.show()
+```
 
