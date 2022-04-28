@@ -537,7 +537,7 @@ However, I faced a challenge in this step. The scores of models vary each time u
 
 As shown in the table, the overall ranking of the scores remains consistent, and random forest is relatively the best. Therefore, I will choose random forest as the model.
 
-## <font color=#FFA689>5 Random Forest</font>
+## <font color=#FFA689>6 Random Forest</font>
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf1.png?raw=true"/></div>
 
@@ -545,7 +545,7 @@ Random forest, a Supervised Machine Learning Algorithm, can build decision trees
 
 In this section, I will use the training set to train the random forest model, tune the hyperparameters of the model to give it the best performance, and then test the accuracy on the test set.
 
-### <font color=#FFA689>5.1 Hyperparameters Tuning</font>
+### <font color=#FFA689>6.1 Hyperparameters Tuning</font>
 
 Hyperparameters are model's parameters used to control the learning process. Tuning hyperparameters can improve the performance of the model. There are many hyperparameters of random forest.
 
@@ -832,7 +832,7 @@ plt.legend(loc = "best")
 
 It can be seen that the overfitting problem is improved in general rather than just for one specific random oversampling, and all scores of test set are more than 70%. Therefore, the hyperparameters tuning is effective.
 
-### <font color=#FFA689>5.2 Feature Importance</font>
+### <font color=#FFA689>6.2 Feature Importance</font>
 
 Now, I am going to verify the importance of the four features I have chosen in the random forest model.
 
@@ -876,6 +876,49 @@ I randomly oversampled df_continuous1 and df_continuous2 ten times and used them
 
 Here is the table recoding the scores of test set and training set before removing and after removing the feature serum sodium.
 
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf16.png?raw=true"/></div>
+
+Then I am going to visualize the contents of the table.
+
+```
+plt.figure(figsize=(10, 5))
+x = [1,2,3,4,5,6,7,8,9,10]
+k1 = [76.83,79.27,76.83,74.39,79.27,71.95,74.39,71.95,79.27,79.27]
+k2 = [79.01,80.56,82.10,80.25,80.25,79.63,80.56,81.17,80.56,81.17]
+k3 = [79.27,75.61,76.83,74.39,73.01,75.61,73.17,76.83,79.27,80.49]
+k4 = [81.48,83.02,81.48,80.56,79.01,82.41,81.79,79.63,82.72,83.95]
+plt.plot(x,k1,'s-',color = '#8cc7b5',label="SSO_test")
+plt.plot(x,k2,'o-',color = '#8cc7b5',label="SSO_train")
+plt.plot(x,k3,'s-',color = '#ffc7b5',label="NoSSO_test")
+plt.plot(x,k4,'o-',color = '#ffc7b5',label="NoSSO_train")
+plt.ylim((50,100))
+plt.xlabel("Numbers")
+plt.ylabel("Scores")
+plt.legend(loc = "best")
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf17.png?raw=true"/></div>
 
 
+The two green lines are the scores of the training and test sets when the feature serum sodium is retained, and the pink lines are the scores of the training and test sets after the feature serum sodium is removed. It can be seen that whether the feature serum sodium is removed or not has no significant effect on the performance of the model.
 
+Therefore, in order to improve the speed of model training and the convenience of future data collection, I decided to remove the feature serum sodium and keep only three features, serum creatinine, ejection fraction and age, to train the model. The final performance of the model has been listed in the table above.
+
+## <font color=#FFA689>7 Conclusion</font>
+
+In this project, I used 3 features, serum creatinine, ejection fraction and age, to train the random forest model with a small size dataset, which only has 299 data points. I used random oversampling to resolve imbalances in the dataset. For the model, I tuned the hyperparameters (n_estimators=40, max_depth=4, min_samples_leaf=12, min_samples_split=40). The overfitting problem still exists, but is well improved. Scores on test set remain in the 70-80 range after random oversampling. The following line chart shows the performance of the model.
+
+```
+plt.figure(figsize=(10, 5))
+x = [1,2,3,4,5,6,7,8,9,10]
+k3 = [79.27,75.61,76.83,74.39,73.01,75.61,73.17,76.83,79.27,80.49]
+k4 = [81.48,83.02,81.48,80.56,79.01,82.41,81.79,79.63,82.72,83.95]
+plt.plot(x,k3,'s-',color = '#8cc7b5',label="test")
+plt.plot(x,k4,'o-',color = '#ffc7b5',label="train")
+plt.ylim((50,100))
+plt.xlabel("Numbers")
+plt.ylabel("Scores")
+plt.legend(loc = "best")
+```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf17.png?raw=true"/></div>
