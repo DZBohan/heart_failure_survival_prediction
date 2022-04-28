@@ -550,6 +550,8 @@ Hyperparameters are model's parameters used to control the learning process. Tu
 
 <div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf2.png?raw=true"/></div>
 
+#### <font color=#FFA689>Training with Default Hyperparameters</font>
+
 Now, I will first train the set with default hyperparameters and do a prediction on the test set.
 
 ```
@@ -608,4 +610,55 @@ Then, I generate the accuracy on training set.
 score = round(accuracy_score(y_train, y_train_pred),4)*100
 print("Accuracy on trainning set: {}%".format(score))
 ```
+
+<div align=center><img width =60% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/rf6.png?raw=true"/></div>
+
+The accuracy of the model on the training set is 100%, which is much higher the the accuracy on the test set, so there is a overfitting issue. I need to tune the hyperparameters to solve this problem.
+
+#### <font color=#FFA689>Hyperparameters Selection</font>
+
+I listed the hyperparameters I want to tune here.
+
+* n_estimators = number of trees in the forest. Default = 100
+* max_depth = max number of levels in each decision tree. Default = None
+* min_samples_leaf = min number of data points allowed in a leaf node. Default = 1
+* min_samples_split = min number of data points placed in a node before the node is split. Default =2
+
+My goals of tuning the hyperparameters are solving the overfitting issue and keeping the good performance of the model. n_estimators is a major factor affecting the performance of the random forest model. Having a limitation on max_depth can improve the overfitting issue. Increasing the values of min_simples_leaf and min_samples_split can prune the branches of each decision tree in the random forest, thus improving the overfitting problem.
+
+#### <font color=#FFA689>Hyperparameters Tuning</font>
+
+First, let's tune n_estimators. I'll use a range of 10 to 200 with an interval of 10 to generate the scores. Other hyperparameters are default values.
+
+```
+values = [i for i in range(10, 200, 10)]
+# define lists to collect scores
+train_scores, test_scores = list(), list()
+
+for i in values:
+    # configure the model
+    model = RandomForestClassifier(n_estimators=i,random_state=20)
+    # fit model on the training dataset
+    model.fit(X_train, y_train)
+    # evaluate on the train dataset
+    y_train_pred = model.predict(X_train)
+    train_acc = accuracy_score(y_train, y_train_pred)
+    train_scores.append(train_acc)
+    # evaluate on the test dataset
+    y_test_pred = model.predict(X_test)
+    test_acc = accuracy_score(y_test, y_test_pred)
+    test_scores.append(test_acc)
+```
+Now, let's plot a line chart to see the trend and find the best point.
+
+```
+from matplotlib import pyplot
+plt.figure(figsize=(15,7))
+pyplot.plot(values, train_scores, '-o', label='Train', color='#8cc7b5')
+pyplot.plot(values, test_scores, '-o', label='Test', color='#ffc7b5')
+pyplot.legend()
+pyplot.show()
+```
+
+
 
