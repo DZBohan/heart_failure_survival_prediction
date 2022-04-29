@@ -2,7 +2,7 @@
 
 ## <center><font color=#FFA689>Bohan Zhang</font></center>
 
-<center>GitHub Page: [https://dzbohan.github.io/heart_failure_survival_prediction/](https://dzbohan.github.io/heart_failure_survival_prediction/)
+<center>GitHub Page: [https://dzbohan.github.io/heart_failure_survival_prediction/](https://dzbohan.github.io/heart_failure_survival_prediction/)</center>
 
 <div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true"/></div></center>
 
