@@ -2,7 +2,9 @@
 
 ## <center><font color=#FFA689>Bohan Zhang</font></center>
 
-<div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true"/></div>
+<center>GitHub Page: [https://dzbohan.github.io/heart_failure_survival_prediction/](https://dzbohan.github.io/heart_failure_survival_prediction/)
+
+<div align=center><img width =100% src ="https://github.com/DZBohan/heart_failure_survival_prediction/blob/main/images/title.png?raw=true"/></div></center>
 
 ## <font color=#53AB90>Index</font>
 
